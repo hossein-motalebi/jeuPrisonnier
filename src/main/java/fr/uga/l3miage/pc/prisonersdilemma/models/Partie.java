@@ -12,32 +12,30 @@ import lombok.experimental.SuperBuilder;
 
 
 @Getter
-@SuperBuilder
 @Setter
-@Entity
-public class PartieEntity {
+public class Partie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private JoueurEntity joueur1;
+    private Joueur joueur1;
 
     @ManyToOne
-    private JoueurEntity joueur2;
+    private Joueur joueur2;
 
     @OneToMany(mappedBy = "partie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ResultatTourEntity> historique = new ArrayList<>();
+    private List<ResultatTour> historique = new ArrayList<>();
 
     private int tourActuel;
     private int totalTours;
     private boolean enCours;
 
-    public PartieEntity() {
+    public Partie() {
     }
 
-    public PartieEntity(JoueurEntity joueur1, JoueurEntity joueur2, int totalTours) {
+    public Partie(Joueur joueur1, Joueur joueur2, int totalTours) {
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
         this.totalTours = totalTours;
@@ -56,11 +54,14 @@ public class PartieEntity {
         Decision decisionJoueur1 = joueur1.prendreDecision(historique);
         Decision decisionJoueur2 = joueur2.prendreDecision(historique);
 
-        ResultatTourEntity resultatTour = new ResultatTourEntity(decisionJoueur1, decisionJoueur2, this);
+        ResultatTour resultatTour = new ResultatTour(decisionJoueur1, decisionJoueur2, this);
         historique.add(resultatTour);
 
+        /*
         joueur1.ajouterScore(resultatTour.getScoreJoueur1());
         joueur2.ajouterScore(resultatTour.getScoreJoueur2());
+        */
+
     }
 
     public void terminateParties() {

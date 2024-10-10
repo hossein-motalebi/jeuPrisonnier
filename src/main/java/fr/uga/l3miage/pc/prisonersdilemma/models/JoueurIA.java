@@ -7,32 +7,29 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 
 @Getter
-@SuperBuilder
 @Setter
-@Entity
-public class JoueurIAEntity extends JoueurEntity {
+public class JoueurIA extends Joueur {
 
     private String strategieNom;
 
     @Transient
     private Strategie strategie;
 
-    public JoueurIAEntity() {
+    public JoueurIA() {
         super();
     }
 
-    public JoueurIAEntity(String nom, Strategie strategie) {
+    public JoueurIA(String nom, Strategie strategie) {
         super(nom);
         this.strategie = strategie;
         this.strategieNom = strategie.getClass().getSimpleName();
     }
 
     @Override
-    public Decision prendreDecision(List<ResultatTourEntity> historique) {
+    public Decision prendreDecision(List<ResultatTour> historique) {
         if (strategie == null) {
             // Initialiser la stratégie en fonction du nom
             strategie = StrategieFactory.getStrategie(strategieNom);

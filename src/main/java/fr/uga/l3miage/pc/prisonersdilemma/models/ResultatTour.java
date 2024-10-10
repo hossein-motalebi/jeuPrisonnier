@@ -9,10 +9,8 @@ import lombok.experimental.SuperBuilder;
 
 
 @Getter
-@SuperBuilder
 @Setter
-@Entity
-public class ResultatTourEntity {
+public class ResultatTour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +27,12 @@ public class ResultatTourEntity {
 
     @ManyToOne
     @JoinColumn(name = "partie_id")
-    private PartieEntity partie;
+    private Partie partie;
 
-    public ResultatTourEntity() {
+    public ResultatTour() {
     }
 
-    public ResultatTourEntity(Decision decisionJoueur1, Decision decisionJoueur2, PartieEntity partie) {
+    public ResultatTour(Decision decisionJoueur1, Decision decisionJoueur2, Partie partie) {
         this.decisionJoueur1 = decisionJoueur1;
         this.decisionJoueur2 = decisionJoueur2;
         this.partie = partie;

@@ -5,5 +5,5 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import java.util.List;
 
 public interface Strategie {
-    Decision prendreDecision(List<ResultatTourEntity> historique);
+    Decision prendreDecision(List<ResultatTour> historique);
 }

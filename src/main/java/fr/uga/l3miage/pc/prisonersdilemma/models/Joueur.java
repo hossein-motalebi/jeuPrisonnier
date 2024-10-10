@@ -8,14 +8,11 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 
 @Getter
-@SuperBuilder
 @Setter
-@Entity
-public abstract class JoueurEntity {
+public abstract class Joueur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +21,10 @@ public abstract class JoueurEntity {
     protected String nom;
     protected int score;
 
-    protected JoueurEntity() {
+    protected Joueur() {
     }
 
-    protected JoueurEntity(String nom) {
+    protected Joueur(String nom) {
         this.nom = nom;
         this.score = 0;
     }
@@ -36,6 +33,6 @@ public abstract class JoueurEntity {
         this.score += points;
     }
 
-    public abstract Decision prendreDecision(List<ResultatTourEntity> historique);
+    public abstract Decision prendreDecision(List<ResultatTour> historique);
 
 }

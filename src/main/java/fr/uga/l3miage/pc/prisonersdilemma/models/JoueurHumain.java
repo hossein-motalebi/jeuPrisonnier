@@ -7,26 +7,23 @@ import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 
 @Getter
-@SuperBuilder
 @Setter
-@Entity
-public class JoueurHumainEntity extends JoueurEntity {
+public class JoueurHumain extends Joueur {
 
-    public JoueurHumainEntity(String nom) {
+    public JoueurHumain(String nom) {
         super();
     }
 
-    public JoueurHumainEntity() {
+    public JoueurHumain() {
         super();
     }
 
 
     @Override
-    public Decision prendreDecision(List<ResultatTourEntity> historique) {
+    public Decision prendreDecision(List<ResultatTour> historique) {
         throw new UnsupportedOperationException("La méthode prendreDecision doit être implémentée côté client.");
     }
 
