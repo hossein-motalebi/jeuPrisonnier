@@ -1,0 +1,186 @@
+@startuml
+
+'tous les class de startegie va implementer interface stratégie
+'ce qui permets d'avoir startégie sous forme patron stratégie
+
+interface Strategie{
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+
+
+class StrategieFactory{
+    + {static}creerStrategie(type : TypeStrategie) : Strategie
+}
+
+JoueurBot  -->  StrategieFactory : utilise
+
+StrategieFactory -->  Strategie : initialise
+
+class Partie{
+    -nbMaxTours : int
+    +Partie(joueur1 : Joueur, joueur2 : Joueur, nbMaxTours : int)
+    +nextTour() : void
+    +getScoreJoueur1() : int //si nécessaire
+    +getScoreJoueur2() : int //si nécessaire
+    +getGagnant() : Joueur
+    +jouerTour() : void
+
+
+}
+Partie "1" --> "0..*" Tour : possède
+Partie "1" --> "2" Joueur : possède
+
+abstract class Joueur{
+    -nom : String
+    -score : int
+    +{abstract}prendreDecision()  : Decision
+
+}
+
+
+class JoueurHumain extends Joueur{
+    +joueurHumain(nom : String)
+    +prendreDecision() : Decision
+    +abondonner(strategie : TypeStrategie) : void
+}
+
+class JoueurBot extends Joueur{
+    -strategie : Strategie
+    +JoueurBot(nom : String, strategie : TypeStrategie)
+    +prendreDecision()  : Decision
+    +setStrategie(strategie : TypeStrategie, tours : List<Tour>) : void
+}
+JoueurBot "1" *-> "1" Strategie : posséde
+
+ 'les attributs sonts tous finale car ils ne changent pas
+class Tour{
+    -decisionJoueur1 : Decision
+    -decisionJoueur2 : Decision
+    -gainJoueur1 : ResultatTour
+    -gainJoueur2 : ResultatTour
+    +Tour(): Tour
+    +CalculResultat() : void
+}
+
+'enum TypeJoueur{
+'    HUMAIN
+'    BOT
+'}
+
+enum ResultatTour{
+    TENTATION(5),
+    RECOMPENSE(3),
+    PUNITION(1),
+    DUPERIE(0);
+}
+
+note bottom of ResultatTour
+        T(5), // Tentation
+        C(3), // Récompense (Coopération mutuelle)
+        P(1); // Punition
+        D(0), // Duperie
+end note
+
+enum Decision{
+    COOPERER
+    TRAHIR
+}
+enum TypeStrategie{
+    DONNANT_DONNANT
+    DONNANT_DONNANT_ALEATOIRE
+    DONNANT_POUR_DEUX_DONNANTS
+    DONNANT_POUR_DEUX_DONNANTS_ALEATOIRE
+    SONDEUR_NAIF
+    SONDEUR_REPENTANT
+    PACIFICATEUR_NAIF
+    VRAI_PACIFICATEUR
+    ALEATOIRE
+    TOUJOURS_TRAHIR
+    TOUJOURS_COOPERER
+    RANCUNIER
+    PAVLOV
+    PAVLOV_ALEATOIRE
+    ADAPTATIF
+    GRADUEL
+    DONNANT_DONNANT_SOUPCONNEUX
+    RANCUNIER_DOUX
+}
+
+class StrategieDonnantDonnant implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieDonnantDonnantAleatoire implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieDonnantPourDeuxDonnantsAleatoire implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieDonnantPourDeuxDonnants implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieSondeurNaif implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieSondeurRepentant implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategiePacificateurNaif implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieVraiPacificateur implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieAleatoire implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieToujoursTrahir implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieToujoursCooperer implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieRancunier implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategiePavlov implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategiePavlovAleatoire implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieAdaptatif implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieGraduel implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieDonnantDonnantSoupconneux implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+class StrategieRancunierDoux implements Strategie {
+    +deciderTour(Tours : List<Tour>) : Decision
+}
+
+
+
+
+
+@enduml
