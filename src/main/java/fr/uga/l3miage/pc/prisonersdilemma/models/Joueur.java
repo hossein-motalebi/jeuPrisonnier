@@ -9,30 +9,21 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
+
 public abstract class Joueur {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Tour[] tours;
+    private final String nom;
+    private int score;
 
-    protected String nom;
-    protected int score;
-
-    protected Joueur() {
-    }
-
-    protected Joueur(String nom) {
+    public Joueur(String nom, Tour[] tours) {
         this.nom = nom;
         this.score = 0;
+        this.tours = tours;
     }
-
-    public void ajouterScore(int points) {
-        this.score += points;
+    public void augmenterScore(int score){
+        this.score += score;
     }
-
-    public abstract Decision prendreDecision(List<ResultatTour> historique);
-
 }

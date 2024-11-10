@@ -20,12 +20,13 @@ StrategieFactory -->  Strategie : initialise
 class Partie{
     -nbMaxTours : int
     +Partie(joueur1 : Joueur, joueur2 : Joueur, nbMaxTours : int)
-    +nextTour() : void
+    +initTour() : void
+    +finishTour(Decision descision1 , Decision decision2) : void
+    +finishTour() : void
     +getScoreJoueur1() : int //si nécessaire
     +getScoreJoueur2() : int //si nécessaire
     +getGagnant() : Joueur
-    +jouerTour() : void
-
+    +updateScore() : void
 
 }
 Partie "1" --> "0..*" Tour : possède
@@ -34,14 +35,14 @@ Partie "1" --> "2" Joueur : possède
 abstract class Joueur{
     -nom : String
     -score : int
-    +{abstract}prendreDecision()  : Decision
-
+    '+{abstract}prendreDecision()  : Decision
+    +augmenterScore(score : int) : void
 }
 
 
 class JoueurHumain extends Joueur{
     +joueurHumain(nom : String)
-    +prendreDecision() : Decision
+    '+prendreDecision() : Decision
     +abondonner(strategie : TypeStrategie) : void
 }
 
@@ -49,9 +50,8 @@ class JoueurBot extends Joueur{
     -strategie : Strategie
     +JoueurBot(nom : String, strategie : TypeStrategie)
     +prendreDecision()  : Decision
-    +setStrategie(strategie : TypeStrategie, tours : List<Tour>) : void
 }
-JoueurBot "1" *-> "1" Strategie : posséde
+Joueur  --> "0..*" Tour : historique
 
  'les attributs sonts tous finale car ils ne changent pas
 class Tour{
@@ -60,7 +60,9 @@ class Tour{
     -gainJoueur1 : ResultatTour
     -gainJoueur2 : ResultatTour
     +Tour(): Tour
-    +CalculResultat() : void
+    +estFini() : boolean
+    +calculResultat() : void
+
 }
 
 'enum TypeJoueur{
