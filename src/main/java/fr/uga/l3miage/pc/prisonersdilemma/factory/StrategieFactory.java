@@ -11,7 +11,7 @@ public class StrategieFactory {
     public static Strategie creeStrategie(TypeStrategie strategie) {
         return switch (strategie) {
             case DONNANT_DONNANT -> new StrategieDonnantDonnant();
-            case DONNANT_DONNANT_ALEATOIRE -> new StrategieDonnantDonnantAleatoire();
+            /*case DONNANT_DONNANT_ALEATOIRE -> new StrategieDonnantDonnantAleatoire();
             case DONNANT_POUR_DEUX_DONNANTS -> new StrategieDonnantPourDeuxDonnants();
             case DONNANT_POUR_DEUX_DONNANTS_ALEATOIRE -> new StrategieDonnantPourDeuxDonnantsAleatoire();
             case SONDEUR_NAIF -> new StrategieSondeurNaif();
@@ -28,6 +28,8 @@ public class StrategieFactory {
             case GRADUEL -> new StrategieGraduel();
             case DONNANT_DONNANT_SOUPCONNEUX -> new StrategieDonnantDonnantSoupconneux();
             case RANCUNIER_DOUX -> new StrategieRancunierDoux();
+            */
+
             default -> throw new IllegalArgumentException("Stratégie inconnue : " + strategie);
         };
 

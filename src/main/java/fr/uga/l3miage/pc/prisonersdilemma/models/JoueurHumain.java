@@ -18,9 +18,7 @@ public class JoueurHumain extends Joueur {
 
     }
 
-
-
-    public JoueurBot abondonner(TypeStrategie strategie, Tour[] tours) {
+    public JoueurBot abandonner(TypeStrategie strategie, Tour[] tours) {
         return new JoueurBot(this.getNom()+"(Bot)", strategie, tours);
 
     }
