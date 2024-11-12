@@ -15,6 +15,12 @@ public class JoueurBot extends Joueur {
 
     public JoueurBot(String nom , TypeStrategie typeStrategie , Tour[] tours){
         super(nom,tours);
+        if (typeStrategie == null) {
+            throw new IllegalArgumentException("TypeStrategie cannot be null");
+        }
+        if (tours == null) {
+            throw new IllegalArgumentException("Tours cannot be null");
+        }
         this.typeStrategie=typeStrategie;
         this.strategie= StrategieFactory.creeStrategie(typeStrategie);
     }

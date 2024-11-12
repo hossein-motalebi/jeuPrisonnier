@@ -46,5 +46,7 @@ class JoueurHumainTest {
         assertNotNull(joueurBot);
         assertEquals("TestJoueurHumain(Bot)", joueurBot.getNom());
         assertEquals(TypeStrategie.DONNANT_DONNANT, joueurBot.getTypeStrategie());
+        //test avec un strategie qui n'existe pas il doit retourner un erreur
+
     }
 }
