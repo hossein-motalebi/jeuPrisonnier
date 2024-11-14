@@ -26,7 +26,7 @@ public class JoueurBot extends Joueur {
     }
 
     public Decision prendreDecision(){
-        return strategie.deciderTour(super.getTours());
+        return strategie.deciderTour(this.getTours());
     }
 
 

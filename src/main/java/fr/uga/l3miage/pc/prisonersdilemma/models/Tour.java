@@ -26,14 +26,14 @@ public class Tour {
     }
 
     public void setDecisionJoueur1(Decision decisionJoueur1) {
-        if (decisionJoueur1 != null) {
+        if (this.decisionJoueur1 != null) {
             throw new IllegalStateException("La décision du joueur 1 est déjà définie");
         }
         this.decisionJoueur1 = decisionJoueur1;
     }
 
     public void setDecisionJoueur2(Decision decisionJoueur2) {
-        if (decisionJoueur1 != null) {
+        if (this.decisionJoueur2 != null) {
             throw new IllegalStateException("La décision du joueur 1 est déjà définie");
         }
         this.decisionJoueur2 = decisionJoueur2;

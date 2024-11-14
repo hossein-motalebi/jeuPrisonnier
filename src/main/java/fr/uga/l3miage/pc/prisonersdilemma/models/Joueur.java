@@ -26,4 +26,5 @@ public abstract class Joueur {
     public void augmenterScore(int score){
         this.score += score;
     }
+
 }
