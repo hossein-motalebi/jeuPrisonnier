@@ -15,7 +15,7 @@ class JoueurHumainTest {
     @BeforeEach
     void setUp() {
         Tour[] tours = new Tour[0]; // Assuming Tour is a class and initializing an empty array
-        joueurHumain = new JoueurHumain("TestJoueurHumain", tours);
+        joueurHumain = new JoueurHumain("TestJoueurHumain");
     }
 
     @Test
@@ -34,10 +34,7 @@ class JoueurHumainTest {
         assertEquals(10, joueurHumain.getScore());
     }
 
-    @Test
-    void testGetTours() {
-        assertEquals(0, joueurHumain.getTours().length);
-    }
+
 
     @Test
     void testAbandonner() {
@@ -46,7 +43,7 @@ class JoueurHumainTest {
         assertNotNull(joueurBot);
         assertEquals("TestJoueurHumain(Bot)", joueurBot.getNom());
         assertEquals(TypeStrategie.DONNANT_DONNANT, joueurBot.getTypeStrategie());
-        //test avec un strategie qui n'existe pas il doit retourner un erreur
+        //test avec un strategies qui n'existe pas, il doit retourner une erreur
 
     }
 }

@@ -13,7 +13,7 @@ class StrategieFactory{
     + {static}creerStrategie(type : TypeStrategie) : Strategie
 }
 
-JoueurBot  -->  StrategieFactory : utilise
+JoueurBot  ..>  StrategieFactory : utilise
 
 StrategieFactory -->  Strategie : initialise
 
@@ -49,10 +49,10 @@ class JoueurHumain extends Joueur{
 class JoueurBot extends Joueur{
     -strategie : Strategie
     +JoueurBot(nom : String, strategie : TypeStrategie)
-    +prendreDecision()  : Decision
+    +prendreDecision(Tours : List<Tour>)  : Decision
 }
 Joueur  --> "0..*" Tour : historique
-
+JoueurBot *-> Strategie : utilise
  'les attributs sonts tous finale car ils ne changent pas
 class Tour{
     -decisionJoueur1 : Decision
