@@ -10,6 +10,7 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.*;
 public class JoueurBotTest {
 
     private Tour[] tours;
+    private JoueurHumain joueurHumain;
 
     @BeforeEach
     void setUp() {
