@@ -38,8 +38,7 @@ class JoueurHumainTest {
 
     @Test
     void testAbandonner() {
-        Tour[] tours = new Tour[0]; // Assuming Tour is a class and initializing an empty array
-        JoueurBot joueurBot = joueurHumain.abandonner(TypeStrategie.DONNANT_DONNANT, tours);
+        JoueurBot joueurBot = joueurHumain.abandonner(TypeStrategie.DONNANT_DONNANT);
         assertNotNull(joueurBot);
         assertEquals("TestJoueurHumain(Bot)", joueurBot.getNom());
         assertEquals(TypeStrategie.DONNANT_DONNANT, joueurBot.getTypeStrategie());

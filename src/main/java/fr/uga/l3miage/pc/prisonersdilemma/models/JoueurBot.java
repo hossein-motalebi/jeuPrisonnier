@@ -24,7 +24,7 @@ public class JoueurBot extends Joueur {
     }
 
     public Decision prendreDecision(Tour[] tours){
-        return strategie.deciderTour(tours);
+        return strategie.deciderTour(tours,this.Id,3-this.Id);
     }
 
 
