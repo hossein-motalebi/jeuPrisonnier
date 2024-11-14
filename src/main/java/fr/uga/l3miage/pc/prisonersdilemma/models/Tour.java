@@ -3,10 +3,9 @@ package fr.uga.l3miage.pc.prisonersdilemma.models;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.ResultatTour;
 import lombok.Getter;
-import lombok.Setter;
 
 /*
-* class Tour peut utilisé de deux façons:
+* Class Tour peut utiliser de deux façons :
 * 1. Tour tour = new Tour(); //pour créer un tour sans décision des joueurs
 * et on peut ajouter les décisions des joueurs plus tard
 * 2. Tour tour = new Tour(decisionJoueur1, decisionJoueur2); //pour créer un tour avec les décisions des joueurs
