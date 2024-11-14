@@ -25,10 +25,8 @@ public class StrategieDonnantDonnantAleatoireTest {
         // Créer une instance de la stratégie
         StrategieDonnantDonnantAleatoire strategie = new StrategieDonnantDonnantAleatoire();
 
-        // Utiliser la réflexion pour injecter le mockRandom dans la stratégie
-        Field randomField = StrategieDonnantDonnantAleatoire.class.getDeclaredField("random");
-        randomField.setAccessible(true);
-        randomField.set(strategie, mockRandom);
+        // Utiliser le setter protégé pour injecter le mockRandom
+        strategie.setRandom(mockRandom);
 
         // Historique des tours
         Tour[] tours = new Tour[1];
@@ -49,9 +47,7 @@ public class StrategieDonnantDonnantAleatoireTest {
 
         StrategieDonnantDonnantAleatoire strategie = new StrategieDonnantDonnantAleatoire();
 
-        Field randomField = StrategieDonnantDonnantAleatoire.class.getDeclaredField("random");
-        randomField.setAccessible(true);
-        randomField.set(strategie, mockRandom);
+        strategie.setRandom(mockRandom);
 
         Tour[] tours = new Tour[1];
         tours[0] = new Tour(Decision.COOPERER, Decision.TRAHIR);
@@ -69,9 +65,7 @@ public class StrategieDonnantDonnantAleatoireTest {
 
         StrategieDonnantDonnantAleatoire strategie = new StrategieDonnantDonnantAleatoire();
 
-        Field randomField = StrategieDonnantDonnantAleatoire.class.getDeclaredField("random");
-        randomField.setAccessible(true);
-        randomField.set(strategie, mockRandom);
+        strategie.setRandom(mockRandom);
 
         Tour[] tours = new Tour[0];
 
@@ -89,9 +83,7 @@ public class StrategieDonnantDonnantAleatoireTest {
 
         StrategieDonnantDonnantAleatoire strategie = new StrategieDonnantDonnantAleatoire();
 
-        Field randomField = StrategieDonnantDonnantAleatoire.class.getDeclaredField("random");
-        randomField.setAccessible(true);
-        randomField.set(strategie, mockRandom);
+        strategie.setRandom(mockRandom);
 
         Tour[] tours = new Tour[0];
 

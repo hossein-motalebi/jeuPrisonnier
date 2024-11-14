@@ -7,8 +7,12 @@ import fr.uga.l3miage.pc.prisonersdilemma.models.Strategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
 public class StrategieDonnantDonnantAleatoire implements Strategie {
-    private final Random random = new Random();
+    private Random random = new Random();
     private static final double PROBABILITE_ALEATOIRE = 0.1; // 10% de chance de jouer aléatoirement
+
+    protected void setRandom(Random random) {
+        this.random = random;
+    }
 
     @Override
     public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
