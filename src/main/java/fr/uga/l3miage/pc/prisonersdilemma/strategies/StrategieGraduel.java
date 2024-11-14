@@ -16,15 +16,43 @@ public class StrategieGraduel implements Strategie {
         coopeConsecutif = 0;
     }
 
-    private int parcourTrahir(){
+    private int parcourTrahir(Tour[] tours , int idAdversaire){
+
+        int trahison = 0;
+
+        for (int i = 0 ; i < tours.length ; i++) {
+            if (tours[i].getDecisionJoueur(idAdversaire)==Decision.TRAHIR){
+                trahison++;
+            }
+        }
+        return trahison;
 
     }
 
     @Override
-    public Decision deciderTour(Tour[] tours){
+    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
         if (tours.length == 0){
-            return Decision.COOPERATE;
+            return Decision.COOPERER;
         }
-        if (tours[tours.length-1])
+        if (cycleTrahis==false && tours[tours.length-1].getDecisionJoueur(idAdversaire)==Decision.TRAHIR){
+            // on fait un cycle de trahison
+            cycleTrahis = true;
+            reponseDeTrahir = parcourTrahir(tours,idAdversaire)-1;
+            return Decision.TRAHIR;
+        }
+        if (cycleTrahis==true && reponseDeTrahir>0){
+            reponseDeTrahir--;
+            return Decision.TRAHIR;
+        }
+        else if (coopeConsecutif<2){
+            coopeConsecutif++;
+            return Decision.COOPERER;
+        }
+        else {
+            coopeConsecutif = 0;
+            cycleTrahis = false;
+            return Decision.COOPERER;
+        }
+
     }
 }
