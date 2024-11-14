@@ -12,9 +12,9 @@ public class StrategieToujoursCoopererTest {
     @Test
     void testToujoursCoopererSansHistorique() {
         Strategie strategie = new StrategieToujoursCooperer();
-        Tour[] historique = new Tour[0];
+        Tour[] tours = new Tour[0];
 
-        Decision decision = strategie.deciderTour(historique);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         assertEquals(Decision.COOPERER, decision, "La stratégie devrait toujours coopérer.");
     }
@@ -23,12 +23,12 @@ public class StrategieToujoursCoopererTest {
     void testToujoursCoopererAvecHistoriqueCooperation() {
         Strategie strategie = new StrategieToujoursCooperer();
 
-        Tour[] historique = new Tour[3];
-        historique[0] = new Tour(Decision.COOPERER, Decision.COOPERER);
-        historique[1] = new Tour(Decision.COOPERER, Decision.COOPERER);
-        historique[2] = new Tour(Decision.COOPERER, Decision.COOPERER);
+        Tour[] tours = new Tour[3];
+        tours[0] = new Tour(Decision.COOPERER, Decision.COOPERER);
+        tours[1] = new Tour(Decision.COOPERER, Decision.COOPERER);
+        tours[2] = new Tour(Decision.COOPERER, Decision.COOPERER);
 
-        Decision decision = strategie.deciderTour(historique);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         assertEquals(Decision.COOPERER, decision, "La stratégie devrait toujours coopérer, même si l'adversaire a toujours coopéré.");
     }
@@ -37,12 +37,12 @@ public class StrategieToujoursCoopererTest {
     void testToujoursCoopererAvecHistoriqueTrahison() {
         Strategie strategie = new StrategieToujoursCooperer();
 
-        Tour[] historique = new Tour[3];
-        historique[0] = new Tour(Decision.COOPERER, Decision.TRAHIR);
-        historique[1] = new Tour(Decision.COOPERER, Decision.TRAHIR);
-        historique[2] = new Tour(Decision.COOPERER, Decision.TRAHIR);
+        Tour[] tours = new Tour[3];
+        tours[0] = new Tour(Decision.COOPERER, Decision.TRAHIR);
+        tours[1] = new Tour(Decision.COOPERER, Decision.TRAHIR);
+        tours[2] = new Tour(Decision.COOPERER, Decision.TRAHIR);
 
-        Decision decision = strategie.deciderTour(historique);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         assertEquals(Decision.COOPERER, decision, "La stratégie devrait toujours coopérer, même si l'adversaire a toujours trahi.");
     }
@@ -51,13 +51,13 @@ public class StrategieToujoursCoopererTest {
     void testToujoursCoopererAvecHistoriqueMixte() {
         Strategie strategie = new StrategieToujoursCooperer();
 
-        Tour[] historique = new Tour[4];
-        historique[0] = new Tour(Decision.COOPERER, Decision.TRAHIR);
-        historique[1] = new Tour(Decision.COOPERER, Decision.COOPERER);
-        historique[2] = new Tour(Decision.COOPERER, Decision.TRAHIR);
-        historique[3] = new Tour(Decision.COOPERER, Decision.COOPERER);
+        Tour[] tours = new Tour[4];
+        tours[0] = new Tour(Decision.COOPERER, Decision.TRAHIR);
+        tours[1] = new Tour(Decision.COOPERER, Decision.COOPERER);
+        tours[2] = new Tour(Decision.COOPERER, Decision.TRAHIR);
+        tours[3] = new Tour(Decision.COOPERER, Decision.COOPERER);
 
-        Decision decision = strategie.deciderTour(historique);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         assertEquals(Decision.COOPERER, decision, "La stratégie devrait toujours coopérer, quel que soit l'historique.");
     }

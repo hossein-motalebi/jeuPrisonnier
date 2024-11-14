@@ -11,7 +11,7 @@ public class StrategieDonnantDonnantAleatoire implements Strategie {
     private static final double PROBABILITE_ALEATOIRE = 0.1; // 10% de chance de jouer aléatoirement
 
     @Override
-    public Decision deciderTour(Tour[] tours) {
+    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
         if (random.nextDouble() < PROBABILITE_ALEATOIRE) {
             return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
         } else {
@@ -20,7 +20,7 @@ public class StrategieDonnantDonnantAleatoire implements Strategie {
                 return Decision.COOPERER;
             } else {
                 Tour dernierTour = tours[tours.length - 1];
-                return dernierTour.getDecisionJoueur2();
+                return dernierTour.getDecisionJoueur(idAdversaire);
             }
         }
     }

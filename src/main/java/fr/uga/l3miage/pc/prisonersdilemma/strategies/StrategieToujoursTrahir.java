@@ -6,7 +6,7 @@ import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
 public class StrategieToujoursTrahir implements Strategie {
     @Override
-    public Decision deciderTour(Tour[] tours) {
+    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
         return Decision.TRAHIR;
     }
 }

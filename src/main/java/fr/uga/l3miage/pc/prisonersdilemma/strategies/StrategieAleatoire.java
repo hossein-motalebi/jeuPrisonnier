@@ -10,7 +10,7 @@ public class StrategieAleatoire implements Strategie {
     private final Random random = new Random();
 
     @Override
-    public Decision deciderTour(Tour[] tours) {
+    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
         return random.nextBoolean() ? Decision.TRAHIR : Decision.COOPERER;
     }
 }

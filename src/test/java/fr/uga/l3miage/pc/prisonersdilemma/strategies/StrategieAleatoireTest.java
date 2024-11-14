@@ -13,14 +13,14 @@ public class StrategieAleatoireTest {
     void testDistributionAleatoireDesDecisions() {
         Strategie strategie = new StrategieAleatoire();
 
-        Tour[] historique = new Tour[0];
+        Tour[] tours = new Tour[0];
 
         int coopererCount = 0;
         int trahirCount = 0;
         int iterations = 1000;
 
         for (int i = 0; i < iterations; i++) {
-            Decision decision = strategie.deciderTour(historique);
+            Decision decision = strategie.deciderTour(tours,1,2);
             if (decision == Decision.COOPERER) {
                 coopererCount++;
             } else if (decision == Decision.TRAHIR) {

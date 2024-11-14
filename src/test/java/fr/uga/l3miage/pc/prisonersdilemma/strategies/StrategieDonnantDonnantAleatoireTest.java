@@ -35,7 +35,7 @@ public class StrategieDonnantDonnantAleatoireTest {
         tours[0] = new Tour(Decision.COOPERER, Decision.COOPERER);
 
         // Appeler la méthode à tester
-        Decision decision = strategie.deciderTour(tours);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         // Vérifier la décision
         assertEquals(Decision.TRAHIR, decision, "La stratégie devrait jouer aléatoirement et trahir.");
@@ -56,7 +56,7 @@ public class StrategieDonnantDonnantAleatoireTest {
         Tour[] tours = new Tour[1];
         tours[0] = new Tour(Decision.COOPERER, Decision.TRAHIR);
 
-        Decision decision = strategie.deciderTour(tours);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         assertEquals(Decision.TRAHIR, decision, "La stratégie devrait reproduire le dernier coup de l'adversaire.");
     }
@@ -75,7 +75,7 @@ public class StrategieDonnantDonnantAleatoireTest {
 
         Tour[] tours = new Tour[0];
 
-        Decision decision = strategie.deciderTour(tours);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         assertEquals(Decision.COOPERER, decision, "La stratégie devrait coopérer par défaut au premier tour.");
     }
@@ -95,7 +95,7 @@ public class StrategieDonnantDonnantAleatoireTest {
 
         Tour[] tours = new Tour[0];
 
-        Decision decision = strategie.deciderTour(tours);
+        Decision decision = strategie.deciderTour(tours,1,2);
 
         assertEquals(Decision.COOPERER, decision, "La stratégie devrait jouer aléatoirement et coopérer.");
     }
