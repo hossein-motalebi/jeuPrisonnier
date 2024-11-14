@@ -3,8 +3,16 @@ package fr.uga.l3miage.pc.prisonersdilemma.models;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.ResultatTour;
 import lombok.Getter;
-import lombok.Setter;
 
+/*
+* Class Tour peut utiliser de deux façons :
+* 1. Tour tour = new Tour(); //pour créer un tour sans décision des joueurs
+* et on peut ajouter les décisions des joueurs plus tard
+* 2. Tour tour = new Tour(decisionJoueur1, decisionJoueur2); //pour créer un tour avec les décisions des joueurs
+*
+* les gagnants des joueurs sont calculés automatiquement en utilisant la méthode CalculerGain() après avoir défini les décisions des joueurs
+* et ils ne sont pas accessibles pour modification ni setter manuellement
+* */
 @Getter
 
 public class Tour {
@@ -12,6 +20,7 @@ public class Tour {
     private Decision decisionJoueur2;
     private ResultatTour gainJoueur1;
     private ResultatTour gainJoueur2;
+    private boolean estFini=false;
 
     //constructeur par défault
     public Tour(){
@@ -26,6 +35,9 @@ public class Tour {
     }
 
     public void setDecisionJoueur1(Decision decisionJoueur1) {
+        if (decisionJoueur1 == null) {
+            throw new IllegalArgumentException("Decision ne peut pas être null.");
+        }
         if (this.decisionJoueur1 != null) {
             throw new IllegalStateException("La décision du joueur 1 est déjà définie");
         }
@@ -33,6 +45,9 @@ public class Tour {
     }
 
     public void setDecisionJoueur2(Decision decisionJoueur2) {
+        if (decisionJoueur2 == null) {
+            throw new IllegalArgumentException("Decision ne peut pas être null.");
+        }
         if (this.decisionJoueur2 != null) {
             throw new IllegalStateException("La décision du joueur 1 est déjà définie");
         }
@@ -53,11 +68,32 @@ public class Tour {
         this.gainJoueur2 = gainJoueur2;
     }
 
+    public Decision getDecisionJoueur(int joueur){
+        if(joueur == 1){
+            return decisionJoueur1;
+        }else if(joueur == 2){
+            return decisionJoueur2;
+        }else{
+            throw new IllegalArgumentException("joueur doit être 1 ou 2");
+        }
+    }
 
+    public ResultatTour getGainJoueur(int joueur){
+        if(joueur == 1){
+            return gainJoueur1;
+        }else if(joueur == 2){
+            return gainJoueur2;
+        }else{
+            throw new IllegalArgumentException("joueur doit être 1 ou 2");
+        }
+    }
+
+    protected void setEstFini(boolean estFini) {
+        this.estFini = estFini;
+    }
 
     public boolean estFini(){
-        return gainJoueur1 != null && gainJoueur2 != null
-                && decisionJoueur1 != null && decisionJoueur2 != null;
+        return estFini;
     }
 
     public void calculerGain(){
