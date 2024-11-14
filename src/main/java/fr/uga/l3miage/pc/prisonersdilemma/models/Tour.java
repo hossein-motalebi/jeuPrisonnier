@@ -68,6 +68,25 @@ public class Tour {
         this.gainJoueur2 = gainJoueur2;
     }
 
+    public Decision getDecisionJoueur(int joueur){
+        if(joueur == 1){
+            return decisionJoueur1;
+        }else if(joueur == 2){
+            return decisionJoueur2;
+        }else{
+            throw new IllegalArgumentException("joueur doit être 1 ou 2");
+        }
+    }
+
+    public ResultatTour getGainJoueur(int joueur){
+        if(joueur == 1){
+            return gainJoueur1;
+        }else if(joueur == 2){
+            return gainJoueur2;
+        }else{
+            throw new IllegalArgumentException("joueur doit être 1 ou 2");
+        }
+    }
 
     protected void setEstFini(boolean estFini) {
         this.estFini = estFini;

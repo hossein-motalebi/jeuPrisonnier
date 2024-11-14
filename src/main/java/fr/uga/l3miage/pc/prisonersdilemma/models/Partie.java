@@ -36,6 +36,7 @@ public class Partie {
 
        setNbMaxTours(nbMaxTours);
        setJoueur1(joueur1);
+
        setJoueur2(joueur2);
        tours=new Tour[nbMaxTours];
        currentTourIndex = 0;
