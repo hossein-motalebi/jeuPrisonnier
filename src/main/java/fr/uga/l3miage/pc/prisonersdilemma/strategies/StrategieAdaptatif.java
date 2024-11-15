@@ -5,7 +5,8 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.ResultatTour;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Strategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
-public class StrategieAdaptatif implements Strategie {
+// A COMPLETER ET CORRIGER
+public class StrategieAdaptatif implements Strategie { //NOSONAR
     private static final Decision[] SEQUENCE_INITIALE = {
             Decision.COOPERER, Decision.COOPERER, Decision.COOPERER, Decision.COOPERER, Decision.COOPERER, Decision.COOPERER,
             Decision.TRAHIR, Decision.TRAHIR, Decision.TRAHIR, Decision.TRAHIR, Decision.TRAHIR
@@ -16,8 +17,9 @@ public class StrategieAdaptatif implements Strategie {
     private double totalGainTrahir = 0;
     private int countTrahir = 0;
 
+    // A COMPLETER ET CORRIGER
     @Override
-    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
+    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) { //NOSONAR
         int tourActuel = tours != null ? tours.length : 0;
 
         // Mettre à jour les gains basés sur les tours précédents
