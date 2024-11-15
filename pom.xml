@@ -13,7 +13,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.4</version>
-        <relativePath/> <!-- Recherche du parent depuis le dépôt -->
+        <relativePath/>
     </parent>
 
     <properties>
@@ -123,7 +123,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
                 <configuration>
-                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <argLine>${argLine}</argLine>
                 </configuration>
             </plugin>
 
@@ -147,13 +148,14 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <reports>
+                                <xml>true</xml>
+                                <html>true</html> <!-- Optionnel, pour avoir un rapport HTML -->
+                            </reports>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <outputDirectory>${project.build.directory}/jacoco</outputDirectory>
-                    <dataFile>${project.build.directory}/jacoco/jacoco.exec</dataFile>
-                    <output>${project.build.directory}/jacoco/jacoco.xml</output>
-                </configuration>
             </plugin>
 
             <!-- Plugin SonarQube pour l'analyse -->
