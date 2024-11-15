@@ -5,21 +5,21 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Strategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 
 public class StrategiePacificateurNaif implements Strategie {
 
-    private Random random;
+    private SecureRandom random;
 
-    protected void setRandom(Random random) {
+    protected void setRandom(SecureRandom random) {
         this.random = random;
     }
     public boolean parFois(){
         return this.random.nextInt(100) > 75;
     }
     public StrategiePacificateurNaif() {
-        this.setRandom(new Random());
+        this.setRandom(new SecureRandom());
     }
 
     public Decision deciderTour(Tour[] tours , int idJoueur , int idAdversaire) {

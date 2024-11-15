@@ -5,14 +5,14 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.ResultatTour;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Strategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 
 public class StrategiePavlovAleatoire implements Strategie {
 
-    private Random random;
+    private SecureRandom random;
 
-    protected void setRandom(Random random) {
+    protected void setRandom(SecureRandom random) {
         this.random = random;
     }
     public boolean parFois(){
@@ -20,7 +20,7 @@ public class StrategiePavlovAleatoire implements Strategie {
 
     }
     public StrategiePavlovAleatoire() {
-        this.setRandom(new Random());
+        this.setRandom(new SecureRandom());
     }
 
     public Decision deciderTour(Tour[] tours , int idJoueur , int idAdversaire) {

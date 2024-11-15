@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/jeu")
 public class JeuController { //NOSONAR
 
-    @RequestMapping("/start")
-    public String startGame() {
-        return "Game started";
-        //todo if the game is not started, start it //NOSONAR
-    }
+    //TODO //NOSONAR
 
 }

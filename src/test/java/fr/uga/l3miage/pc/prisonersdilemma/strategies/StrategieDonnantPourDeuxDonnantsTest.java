@@ -5,7 +5,7 @@ import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -14,7 +14,7 @@ class StrategieDonnantPourDeuxDonnantsTest {
 
     @Test
     void testMoinsDeDeuxToursJoueAleatoirementCoopere() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextBoolean()).thenReturn(true); // Retourne true, donc Decision.COOPERER
 
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();
@@ -29,7 +29,7 @@ class StrategieDonnantPourDeuxDonnantsTest {
 
     @Test
     void testMoinsDeDeuxToursJoueAleatoirementTrahir() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextBoolean()).thenReturn(false); // Retourne false, donc Decision.TRAHIR
 
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();
@@ -71,7 +71,7 @@ class StrategieDonnantPourDeuxDonnantsTest {
 
     @Test
     void testAdversaireChangeDecisionJoueAleatoirementCoopere() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextBoolean()).thenReturn(true); // Retourne true, donc Decision.COOPERER
 
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();
@@ -88,7 +88,7 @@ class StrategieDonnantPourDeuxDonnantsTest {
 
     @Test
     void testAdversaireChangeDecisionJoueAleatoirementTrahir() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextBoolean()).thenReturn(false); // Retourne false, donc Decision.TRAHIR
 
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();

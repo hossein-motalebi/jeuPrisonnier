@@ -5,7 +5,7 @@ import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -14,7 +14,7 @@ class StrategieDonnantPourDeuxDonnantsAleatoireTest {
 
     @Test
     void testMoinsDeDeuxToursJoueAleatoirementCoopere() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextDouble()).thenReturn(0.15);
         when(mockRandom.nextBoolean()).thenReturn(true); // Decision.COOPERER
 
@@ -30,7 +30,7 @@ class StrategieDonnantPourDeuxDonnantsAleatoireTest {
 
     @Test
     void testMoinsDeDeuxToursJoueAleatoirementTrahir() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextDouble()).thenReturn(0.15);
         when(mockRandom.nextBoolean()).thenReturn(false); // Decision.TRAHIR
 
@@ -47,7 +47,7 @@ class StrategieDonnantPourDeuxDonnantsAleatoireTest {
 
     @Test
     void testJoueAleatoirementEnFonctionProbabiliteCoopere() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextDouble()).thenReturn(0.05);
         when(mockRandom.nextBoolean()).thenReturn(true); // Decision.COOPERER
 
@@ -66,7 +66,7 @@ class StrategieDonnantPourDeuxDonnantsAleatoireTest {
 
     @Test
     void testJoueAleatoirementEnFonctionProbabiliteTrahir() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextDouble()).thenReturn(0.05);
         when(mockRandom.nextBoolean()).thenReturn(false); // Decision.TRAHIR
 
@@ -111,7 +111,7 @@ class StrategieDonnantPourDeuxDonnantsAleatoireTest {
 
     @Test
     void testAdversaireChangeDecisionJoueAleatoirementCoopere() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextDouble()).thenReturn(0.15);
         when(mockRandom.nextBoolean()).thenReturn(true); // Decision.COOPERER
 
@@ -130,7 +130,7 @@ class StrategieDonnantPourDeuxDonnantsAleatoireTest {
 
     @Test
     void testAdversaireChangeDecisionJoueAleatoirementTrahir() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextDouble()).thenReturn(0.15); // Plus de 0.1, donc ne joue pas aléatoirement sur la probabilité
         when(mockRandom.nextBoolean()).thenReturn(false); // Decision.TRAHIR
 
@@ -148,7 +148,7 @@ class StrategieDonnantPourDeuxDonnantsAleatoireTest {
 
     @Test
     void testJoueAleatoirementProbabiliteEtAdversaireChange() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
         when(mockRandom.nextDouble()).thenReturn(0.05);
         when(mockRandom.nextBoolean()).thenReturn(true); // Decision.COOPERER
 

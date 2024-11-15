@@ -8,7 +8,7 @@ import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -19,12 +19,12 @@ class StrategiePavlovAleatoireTest {
     
     Strategie strategie;
     Tour[] tours;
-    Random mockRandom;
+    SecureRandom mockRandom;
     
     @BeforeEach
     public void setUp() {
         strategie = StrategieFactory.creeStrategie(TypeStrategie.PAVLOV_ALEATOIRE);
-        mockRandom = mock(Random.class);
+        mockRandom = mock(SecureRandom.class);
  
     }        
     

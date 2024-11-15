@@ -5,8 +5,8 @@ import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
-import java.util.Random;
+
+import java.security.SecureRandom;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,7 +16,7 @@ class StrategieDonnantDonnantAleatoireTest {
     @Test
     void testJoueAleatoirement()  {
         // Créer un mock de Random
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
 
         // Configurer le comportement du mockRandom
         when(mockRandom.nextDouble()).thenReturn(0.05); // Moins de 0.1, donc joue aléatoirement
@@ -41,7 +41,7 @@ class StrategieDonnantDonnantAleatoireTest {
 
     @Test
     void testNeJouePasAleatoirement()  {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
 
         when(mockRandom.nextDouble()).thenReturn(0.15); // Plus de 0.1, donc ne joue pas aléatoirement
 
@@ -59,7 +59,7 @@ class StrategieDonnantDonnantAleatoireTest {
 
     @Test
     void testPremierTourNeJouePasAleatoirement()  {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
 
         when(mockRandom.nextDouble()).thenReturn(0.15); // Plus de 0.1, donc ne joue pas aléatoirement
 
@@ -76,7 +76,7 @@ class StrategieDonnantDonnantAleatoireTest {
 
     @Test
     void testPremierTourJoueAleatoirement() {
-        Random mockRandom = mock(Random.class);
+        SecureRandom mockRandom = mock(SecureRandom.class);
 
         when(mockRandom.nextDouble()).thenReturn(0.05); // Moins de 0.1, donc joue aléatoirement
         when(mockRandom.nextBoolean()).thenReturn(true); // Retourne false, donc Decision.COOPERER

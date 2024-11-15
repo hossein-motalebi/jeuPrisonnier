@@ -1,15 +1,15 @@
 package fr.uga.l3miage.pc.prisonersdilemma.strategies;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Strategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
 public class StrategieDonnantPourDeuxDonnants implements Strategie {
-    private Random random = new Random();
+    private SecureRandom random = new SecureRandom();
 
-    protected void setRandom(Random random) {
+    protected void setRandom(SecureRandom random) {
         this.random = random;
     }
 

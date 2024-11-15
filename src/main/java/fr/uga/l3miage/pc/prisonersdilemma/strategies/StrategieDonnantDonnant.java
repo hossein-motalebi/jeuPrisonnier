@@ -4,11 +4,11 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Strategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class StrategieDonnantDonnant implements Strategie {
 
-    private final Random random = new Random();
+    private final SecureRandom random = new SecureRandom();
 
     @Override
     public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
