@@ -8,20 +8,23 @@
     <artifactId>prisonbreak_g2_5</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <!-- Ajout du parent Spring Boot -->
+    <!-- Déclaration du parent Spring Boot -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- Recherche du parent depuis le dépôt -->
     </parent>
 
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <sonar.host.url>https://im2ag-sonar.univ-grenoble-alpes.fr</sonar.host.url>
         <sonar.projectKey>fr.uga.miage.m1:prisonbreak_g2_5</sonar.projectKey>
+        <!-- Chemin du rapport JaCoCo pour SonarQube -->
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>
@@ -37,7 +40,7 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- H2 Database (pour les tests ou en mémoire) -->
+        <!-- Base de données H2 (pour les tests ou en mémoire) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -58,19 +61,15 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
 
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>5.3.1</version>
-                <scope>test</scope>
-            </dependency>
-
+        <!-- Mockito Core -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -94,8 +93,7 @@
             <scope>test</scope>
         </dependency>
 
-
-        <!-- JUnit Jupiter (inclus dans spring-boot-starter-test) -->
+        <!-- Autres dépendances si nécessaire -->
     </dependencies>
 
     <build>
@@ -123,7 +121,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.1.2</version>
+                <configuration>
+                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>
+                </configuration>
             </plugin>
 
             <!-- Plugin JaCoCo pour la couverture de code -->
@@ -132,29 +133,35 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version>
                 <executions>
+                    <!-- Prépare l'agent JaCoCo avant les tests -->
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+                    <!-- Génère le rapport JaCoCo au format XML après les tests -->
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
                 <configuration>
-                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>
+                    <outputDirectory>${project.build.directory}/jacoco</outputDirectory>
+                    <dataFile>${project.build.directory}/jacoco/jacoco.exec</dataFile>
+                    <output>${project.build.directory}/jacoco/jacoco.xml</output>
                 </configuration>
             </plugin>
 
+            <!-- Plugin SonarQube pour l'analyse -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
+            </plugin>
         </plugins>
     </build>
 </project>
