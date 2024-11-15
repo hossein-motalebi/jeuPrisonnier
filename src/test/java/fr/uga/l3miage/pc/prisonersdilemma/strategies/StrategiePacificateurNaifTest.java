@@ -10,11 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-public class StrategiePacificateurNaifTest {
+class StrategiePacificateurNaifTest {
 
     Strategie strategie;
     Tour[] tours;
@@ -31,20 +32,21 @@ public class StrategiePacificateurNaifTest {
     @Test
     void TestFiftyFiftyPremierCoup(){
         when(mockRandom.nextBoolean()).thenReturn(true);
-        Tour[] tours=new Tour[0];
+        tours=new Tour[0];
         ((StrategiePacificateurNaif)strategie).setRandom(mockRandom);
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
     }
 
     @Test
     void TestFiftyFiftyPremierCoup2(){
         when(mockRandom.nextBoolean()).thenReturn(false);
-        Tour[] tours=new Tour[0];
+        tours=new Tour[0];
         ((StrategiePacificateurNaif)strategie).setRandom(mockRandom);
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR,decision);
+
 
     }
 
@@ -55,7 +57,7 @@ public class StrategiePacificateurNaifTest {
                 new Tour(Decision.TRAHIR,Decision.COOPERER)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
     }
 
@@ -70,7 +72,7 @@ public class StrategiePacificateurNaifTest {
                 new Tour(Decision.TRAHIR,Decision.TRAHIR)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR,decision);
 
     }
 
@@ -85,7 +87,7 @@ public class StrategiePacificateurNaifTest {
                 new Tour(Decision.TRAHIR,Decision.TRAHIR)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
     }
 

@@ -12,12 +12,12 @@ public abstract class Joueur {
 
     private final String nom;
     private int score;
-    protected int Id;
+    protected int id;
 
-    public Joueur(String nom) {
+    protected Joueur(String nom) {
         this.nom = nom;
         this.score = 0;
-        this.Id = 0; //id par défaut
+        this.id = 0; //id par défaut
     }
     public void augmenterScore(int score){
         this.score += score;

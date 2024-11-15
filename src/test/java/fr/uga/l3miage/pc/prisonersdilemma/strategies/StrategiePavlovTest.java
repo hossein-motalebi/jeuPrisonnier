@@ -10,11 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-public class StrategiePavlovTest {
+class StrategiePavlovTest {
 
     Strategie strategie;
     Tour[] tours;
@@ -35,7 +36,7 @@ public class StrategiePavlovTest {
                 new Tour(Decision.TRAHIR,Decision.COOPERER)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR,decision);
 
     }
     @Test
@@ -46,26 +47,26 @@ public class StrategiePavlovTest {
                 new Tour(Decision.COOPERER,Decision.COOPERER)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
     }
     @Test
     void TestFiftyFiftyPremierCoup(){
         when(mockRandom.nextBoolean()).thenReturn(true);
-        Tour[] tours=new Tour[0];
+        tours=new Tour[0];
         ((StrategiePavlov)strategie).setRandom(mockRandom);
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
     }
 
     @Test
     void TestFiftyFiftyPremierCoup2(){
         when(mockRandom.nextBoolean()).thenReturn(false);
-        Tour[] tours=new Tour[0];
+        tours=new Tour[0];
         ((StrategiePavlov)strategie).setRandom(mockRandom);
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR,decision);
 
     }
 
@@ -79,13 +80,13 @@ public class StrategiePavlovTest {
                 new Tour(Decision.COOPERER,Decision.TRAHIR)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR,decision);
 
     }
 
     @Test
     void TestfiftyFiftyFinTrue(){
-        when(mockRandom.nextBoolean()).thenReturn(false);
+        when(mockRandom.nextBoolean()).thenReturn(true);
 
         ((StrategiePavlov)strategie).setRandom(mockRandom);
 
@@ -93,7 +94,7 @@ public class StrategiePavlovTest {
                 new Tour(Decision.COOPERER,Decision.TRAHIR)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.COOPERER,decision);
 
     }
 

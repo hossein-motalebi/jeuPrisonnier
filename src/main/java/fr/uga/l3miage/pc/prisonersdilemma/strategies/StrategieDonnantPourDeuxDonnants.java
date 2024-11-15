@@ -15,20 +15,20 @@ public class StrategieDonnantPourDeuxDonnants implements Strategie {
 
     @Override
     public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
-        if (tours == null || tours.length < 2) {
+        if (tours.length < 2)
             return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
+
+        Tour avantDernierTour = tours[tours.length - 2];
+        Tour dernierTour = tours[tours.length - 1];
+
+        Decision avantDerniereDecisionAdversaire = avantDernierTour.getDecisionJoueur(idAdversaire);
+        Decision derniereDecisionAdversaire = dernierTour.getDecisionJoueur(idAdversaire);
+
+        if (avantDerniereDecisionAdversaire == derniereDecisionAdversaire) {
+            return derniereDecisionAdversaire;
         } else {
-            Tour avantDernierTour = tours[tours.length - 2];
-            Tour dernierTour = tours[tours.length - 1];
-
-            Decision avantDerniereDecisionAdversaire = avantDernierTour.getDecisionJoueur(idAdversaire);
-            Decision derniereDecisionAdversaire = dernierTour.getDecisionJoueur(idAdversaire);
-
-            if (avantDerniereDecisionAdversaire == derniereDecisionAdversaire) {
-                return derniereDecisionAdversaire;
-            } else {
-                return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
-            }
+            return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
         }
+
     }
 }

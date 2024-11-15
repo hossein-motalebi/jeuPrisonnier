@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StrategieGraduelTest {
+class StrategieGraduelTest {
 
     Strategie strategie;
     @BeforeEach
@@ -19,21 +19,21 @@ public class StrategieGraduelTest {
 
     }
     @Test
-    public void testCoopererAuDebut() {
+    void testCoopererAuDebut() {
         Tour[] tours = new Tour[0];
         Decision decision = strategie.deciderTour(tours, 1, 2);
         assertEquals(Decision.COOPERER, decision);
     }
 
     @Test
-    public void testTrahirApresPremiereTrahison() {
+    void testTrahirApresPremiereTrahison() {
         Tour[] tours = {new Tour(Decision.COOPERER, Decision.TRAHIR)};
         Decision decision = strategie.deciderTour(tours, 1, 2);
         assertEquals(Decision.TRAHIR, decision);
     }
 
     @Test
-    public void testTrahirAutantDeFoisQueAdversaire() {
+    void testTrahirAutantDeFoisQueAdversaire() {
         Tour[] tours = {
                 new Tour(Decision.COOPERER, Decision.TRAHIR),
                 new Tour(Decision.TRAHIR, Decision.COOPERER)
@@ -44,7 +44,7 @@ public class StrategieGraduelTest {
     }
 
     @Test
-    public void testTrahirApresTrahison() {
+    void testTrahirApresTrahison() {
         Tour[] tours = {
 
                 new Tour(Decision.COOPERER, Decision.TRAHIR),
@@ -99,7 +99,7 @@ public class StrategieGraduelTest {
         };
 
         decision = strategie.deciderTour(tours, 1, 2);
-        assertEquals(decision, Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
         tours = new Tour[]{
                 new Tour(Decision.COOPERER, Decision.TRAHIR),
@@ -113,7 +113,7 @@ public class StrategieGraduelTest {
                 new Tour(Decision.COOPERER, Decision.COOPERER)
         };
         decision = strategie.deciderTour(tours, 1, 2);
-        assertEquals(decision, Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
         tours = new Tour[]{
                 new Tour(Decision.COOPERER, Decision.TRAHIR),
@@ -129,7 +129,7 @@ public class StrategieGraduelTest {
         };
 
         decision = strategie.deciderTour(tours, 1, 2);
-        assertEquals(decision, Decision.COOPERER);
+        assertEquals(Decision.COOPERER, decision);
 
         tours = new Tour[]{
                 new Tour(Decision.COOPERER, Decision.TRAHIR),
@@ -145,7 +145,7 @@ public class StrategieGraduelTest {
         };
 
         decision = strategie.deciderTour(tours, 1, 2);
-        assertEquals(decision, Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR ,decision);
     }
 }
 

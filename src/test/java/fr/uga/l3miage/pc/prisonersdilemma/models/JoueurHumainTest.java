@@ -1,6 +1,5 @@
 package fr.uga.l3miage.pc.prisonersdilemma.models;
 
-import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ class JoueurHumainTest {
 
     @BeforeEach
     void setUp() {
-        Tour[] tours = new Tour[0]; // Assuming Tour is a class and initializing an empty array
         joueurHumain = new JoueurHumain("TestJoueurHumain");
     }
 

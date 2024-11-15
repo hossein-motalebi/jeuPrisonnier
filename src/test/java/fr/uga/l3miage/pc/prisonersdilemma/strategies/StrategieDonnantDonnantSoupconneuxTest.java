@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StrategieDonnantDonnantSoupconneuxTest {
+class StrategieDonnantDonnantSoupconneuxTest {
 
     @Test
-    public void testPremierTourTrahir() {
+    void testPremierTourTrahir() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[0];
@@ -21,7 +21,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testDeuxiemeTourAdversaireCoopere() {
+    void testDeuxiemeTourAdversaireCoopere() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[1];
@@ -33,7 +33,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testDeuxiemeTourAdversaireTrahit() {
+    void testDeuxiemeTourAdversaireTrahit() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[1];
@@ -45,7 +45,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testTroisiemeTourAdversaireCooperePuisTrahit() {
+    void testTroisiemeTourAdversaireCooperePuisTrahit() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[2];
@@ -58,7 +58,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testTroisiemeTourAdversaireTrahitPuisCoopere() {
+    void testTroisiemeTourAdversaireTrahitPuisCoopere() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[2];
@@ -71,7 +71,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testLongueSequenceAlternance() {
+    void testLongueSequenceAlternance() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[5];
@@ -87,7 +87,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testLongueSequenceAdversaireCoopere() {
+    void testLongueSequenceAdversaireCoopere() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[5];
@@ -103,7 +103,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testLongueSequenceAdversaireTrahit() {
+    void testLongueSequenceAdversaireTrahit() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[5];
@@ -119,7 +119,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testAdversaireCoopereApresTrahisonProlongee() {
+    void testAdversaireCoopereApresTrahisonProlongee() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[5];
@@ -135,7 +135,7 @@ public class StrategieDonnantDonnantSoupconneuxTest {
     }
 
     @Test
-    public void testAdversaireTrahitApresCooperationProlongee() {
+    void testAdversaireTrahitApresCooperationProlongee() {
         StrategieDonnantDonnantSoupconneux strategie = new StrategieDonnantDonnantSoupconneux();
 
         Tour[] tours = new Tour[5];

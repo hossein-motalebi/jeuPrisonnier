@@ -4,12 +4,11 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.ResultatTour;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.internal.matchers.Null;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class TourTest {
+class TourTest {
 
     private Tour tour;
 
@@ -69,20 +68,20 @@ public class TourTest {
     void testCalculerGain(){
 
         Tour tour1=new Tour(Decision.COOPERER,Decision.COOPERER);
-        assertEquals(tour1.getGainJoueur1(), ResultatTour.RECOMPENSE , "Joueur1 devrait être Recomponsé");
-        assertEquals(tour1.getGainJoueur2(), ResultatTour.RECOMPENSE , "Joueur2 devrait être Recomponsé");
+        assertEquals(ResultatTour.RECOMPENSE, tour1.getGainJoueur1(), "Joueur1 devrait être Recomponsé");
+        assertEquals(ResultatTour.RECOMPENSE, tour1.getGainJoueur2(), "Joueur2 devrait être Recomponsé");
 
         Tour tour4=new Tour(Decision.TRAHIR,Decision.TRAHIR);
-        assertEquals(tour4.getGainJoueur1(), ResultatTour.PUNITION , "joueur1 devrait être Punition");
-        assertEquals(tour4.getGainJoueur2(), ResultatTour.PUNITION , "joueur2 devrait être Punition");
+        assertEquals(ResultatTour.PUNITION, tour4.getGainJoueur1(), "joueur1 devrait être Punition");
+        assertEquals(ResultatTour.PUNITION, tour4.getGainJoueur2(), "joueur2 devrait être Punition");
 
         Tour tour2=new Tour(Decision.COOPERER,Decision.TRAHIR);
-        assertEquals(tour2.getGainJoueur1(), ResultatTour.DUPERIE , "Joueur1 devrait être Duperie");
-        assertEquals(tour2.getGainJoueur2(), ResultatTour.TENTATION , "Joueur2 devrait être Tentation" );
+        assertEquals(ResultatTour.DUPERIE, tour2.getGainJoueur1(), "Joueur1 devrait être Duperie");
+        assertEquals(ResultatTour.TENTATION, tour2.getGainJoueur2(), "Joueur2 devrait être Tentation" );
 
         Tour tours3=new Tour(Decision.TRAHIR,Decision.COOPERER);
-        assertEquals(tours3.getGainJoueur1(), ResultatTour.TENTATION , "Joueur1 devrait être Tentation");
-        assertEquals(tours3.getGainJoueur2(), ResultatTour.DUPERIE , "Joueur2 devrait être Duperie" );
+        assertEquals(ResultatTour.TENTATION, tours3.getGainJoueur1(), "Joueur1 devrait être Tentation");
+        assertEquals(ResultatTour.DUPERIE, tours3.getGainJoueur2(), "Joueur2 devrait être Duperie" );
 
     }
 

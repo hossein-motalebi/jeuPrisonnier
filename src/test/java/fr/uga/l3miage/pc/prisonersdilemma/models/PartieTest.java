@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PartieTest {
+class PartieTest {
 
     Joueur player1;
     Joueur player2;
@@ -67,8 +67,8 @@ public class PartieTest {
 
         //gagnant est player1
         assertEquals(1, partie.getGagnant());
-        assertEquals(player1.getScore(), 8);
-        assertEquals(player2.getScore(), 3);
+        assertEquals(8,player1.getScore());
+        assertEquals(3,player2.getScore() );
     }
     @Test
     void TestGetGagnantEgale() {
@@ -80,8 +80,8 @@ public class PartieTest {
         partie.finishTour();
 
         assertEquals(0, partie.getGagnant());
-        assertEquals(player1.getScore(), 4);
-        assertEquals(player2.getScore(), 4);
+        assertEquals(4,player1.getScore());
+        assertEquals(4,player2.getScore());
 
     }
 
@@ -98,8 +98,8 @@ public class PartieTest {
 
 
         assertEquals(2, partie.getGagnant());
-        assertEquals(player2.getScore(), 8);
-        assertEquals(player1.getScore(), 3);
+        assertEquals(8,player2.getScore());
+        assertEquals(3,player1.getScore());
 
     }
 
@@ -166,7 +166,7 @@ public class PartieTest {
         // les tours est identique à la liste de tours
         partie.initTour(Decision.COOPERER, Decision.TRAHIR);
         partie.finishTour();
-        assertEquals(partie.getToursCopy().length , 1);
+        assertEquals(1, partie.getToursCopy().length);
         assertEquals(Decision.COOPERER, partie.getToursCopy()[0].getDecisionJoueur1());
         assertEquals(Decision.TRAHIR, partie.getToursCopy()[0].getDecisionJoueur2());
 
@@ -209,9 +209,10 @@ public class PartieTest {
         assertThrows(IllegalStateException.class, () -> {
             partie.finishTour();
         }, "initTour() n'est pas encore applée mais excpeition n'est pas levée");
+        partie.initTour();
+        partie.finishTour(Decision.COOPERER, Decision.COOPERER);
         assertThrows(IllegalStateException.class, () -> {
-            partie.initTour();
-            partie.finishTour(Decision.COOPERER, Decision.COOPERER);
+
             partie.finishTour();
         }, "initTour() n'est pas encore applée2");
     }

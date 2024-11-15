@@ -8,7 +8,7 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StrategieDonnantDonnantTest {
+class StrategieDonnantDonnantTest {
 
     @Test
     void testPremierTourAleatoire() {

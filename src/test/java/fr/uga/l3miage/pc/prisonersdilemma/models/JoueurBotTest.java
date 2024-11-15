@@ -2,20 +2,11 @@ package fr.uga.l3miage.pc.prisonersdilemma.models;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import fr.uga.l3miage.pc.prisonersdilemma.models.*;
-import fr.uga.l3miage.pc.prisonersdilemma.enums.*;
 
 
-public class JoueurBotTest {
+class JoueurBotTest {
 
-    private Tour[] tours;
-    private JoueurHumain joueurHumain;
 
-    @BeforeEach
-    void setUp() {
-        tours = new Tour[0];
-    }
 
     @Test
     void testConstructor() {

@@ -55,17 +55,11 @@ public class StrategieAdaptatif implements Strategie {
     }
 
     private double obtenirGainNumerique(ResultatTour resultat) {
-        switch (resultat) {
-            case RECOMPENSE:
-                return 3;
-            case TENTATION:
-                return 5;
-            case PUNITION:
-                return 1;
-            case DUPERIE:
-                return 0;
-            default:
-                return 0;
-        }
+        return switch (resultat) {
+            case RECOMPENSE -> 3;
+            case TENTATION -> 5;
+            case PUNITION -> 1;
+            case DUPERIE -> 0;
+        };
     }
 }

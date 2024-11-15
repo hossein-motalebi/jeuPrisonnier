@@ -10,11 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-public class StrategiePavlovAleatoireTest {
+class StrategiePavlovAleatoireTest {
     
     Strategie strategie;
     Tour[] tours;
@@ -38,7 +39,7 @@ public class StrategiePavlovAleatoireTest {
                 new Tour(Decision.TRAHIR,Decision.COOPERER)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.COOPERER);
+        assertEquals(Decision.COOPERER,decision);
 
     }
     @Test
@@ -52,7 +53,7 @@ public class StrategiePavlovAleatoireTest {
                 new Tour(Decision.TRAHIR,Decision.COOPERER)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR,decision);
 
     }
     @Test
@@ -66,7 +67,7 @@ public class StrategiePavlovAleatoireTest {
                 new Tour(Decision.COOPERER,Decision.TRAHIR)
         };
         Decision decision=strategie.deciderTour(tours,1,2);
-        assert(decision==Decision.TRAHIR);
+        assertEquals(Decision.TRAHIR,decision);
 
     }
     

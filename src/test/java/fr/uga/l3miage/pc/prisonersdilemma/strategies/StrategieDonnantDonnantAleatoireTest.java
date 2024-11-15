@@ -11,10 +11,10 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class StrategieDonnantDonnantAleatoireTest {
+class StrategieDonnantDonnantAleatoireTest {
 
     @Test
-    public void testJoueAleatoirement() throws Exception {
+    void testJoueAleatoirement()  {
         // Créer un mock de Random
         Random mockRandom = mock(Random.class);
 
@@ -40,7 +40,7 @@ public class StrategieDonnantDonnantAleatoireTest {
     }
 
     @Test
-    public void testNeJouePasAleatoirement() throws Exception {
+    void testNeJouePasAleatoirement()  {
         Random mockRandom = mock(Random.class);
 
         when(mockRandom.nextDouble()).thenReturn(0.15); // Plus de 0.1, donc ne joue pas aléatoirement
@@ -58,7 +58,7 @@ public class StrategieDonnantDonnantAleatoireTest {
     }
 
     @Test
-    public void testPremierTourNeJouePasAleatoirement() throws Exception {
+    void testPremierTourNeJouePasAleatoirement()  {
         Random mockRandom = mock(Random.class);
 
         when(mockRandom.nextDouble()).thenReturn(0.15); // Plus de 0.1, donc ne joue pas aléatoirement
@@ -75,7 +75,7 @@ public class StrategieDonnantDonnantAleatoireTest {
     }
 
     @Test
-    public void testPremierTourJoueAleatoirement() throws Exception {
+    void testPremierTourJoueAleatoirement() {
         Random mockRandom = mock(Random.class);
 
         when(mockRandom.nextDouble()).thenReturn(0.05); // Moins de 0.1, donc joue aléatoirement

@@ -34,13 +34,13 @@ public class StrategieGraduel implements Strategie {
         if (tours.length == 0){
             return Decision.COOPERER;
         }
-        if (cycleTrahis==false && tours[tours.length-1].getDecisionJoueur(idAdversaire)==Decision.TRAHIR){
+        if (!cycleTrahis && tours[tours.length-1].getDecisionJoueur(idAdversaire)==Decision.TRAHIR){
             // on fait un cycle de trahison
             cycleTrahis = true;
             reponseDeTrahir = parcourTrahir(tours,idAdversaire)-1;
             return Decision.TRAHIR;
         }
-        if (cycleTrahis==true && reponseDeTrahir>0){
+        if (cycleTrahis && reponseDeTrahir>0){
             reponseDeTrahir--;
             return Decision.TRAHIR;
         }

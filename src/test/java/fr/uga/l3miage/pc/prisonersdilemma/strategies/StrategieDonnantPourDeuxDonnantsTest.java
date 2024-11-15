@@ -10,10 +10,10 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class StrategieDonnantPourDeuxDonnantsTest {
+class StrategieDonnantPourDeuxDonnantsTest {
 
     @Test
-    public void testMoinsDeDeuxToursJoueAleatoirementCoopere() {
+    void testMoinsDeDeuxToursJoueAleatoirementCoopere() {
         Random mockRandom = mock(Random.class);
         when(mockRandom.nextBoolean()).thenReturn(true); // Retourne true, donc Decision.COOPERER
 
@@ -28,7 +28,7 @@ public class StrategieDonnantPourDeuxDonnantsTest {
     }
 
     @Test
-    public void testMoinsDeDeuxToursJoueAleatoirementTrahir() {
+    void testMoinsDeDeuxToursJoueAleatoirementTrahir() {
         Random mockRandom = mock(Random.class);
         when(mockRandom.nextBoolean()).thenReturn(false); // Retourne false, donc Decision.TRAHIR
 
@@ -44,7 +44,7 @@ public class StrategieDonnantPourDeuxDonnantsTest {
     }
 
     @Test
-    public void testAdversaireRepeteCooperation() {
+    void testAdversaireRepeteCooperation() {
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();
 
         Tour[] tours = new Tour[2];
@@ -57,7 +57,7 @@ public class StrategieDonnantPourDeuxDonnantsTest {
     }
 
     @Test
-    public void testAdversaireRepeteTrahison() {
+    void testAdversaireRepeteTrahison() {
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();
 
         Tour[] tours = new Tour[2];
@@ -70,7 +70,7 @@ public class StrategieDonnantPourDeuxDonnantsTest {
     }
 
     @Test
-    public void testAdversaireChangeDecisionJoueAleatoirementCoopere() {
+    void testAdversaireChangeDecisionJoueAleatoirementCoopere() {
         Random mockRandom = mock(Random.class);
         when(mockRandom.nextBoolean()).thenReturn(true); // Retourne true, donc Decision.COOPERER
 
@@ -87,7 +87,7 @@ public class StrategieDonnantPourDeuxDonnantsTest {
     }
 
     @Test
-    public void testAdversaireChangeDecisionJoueAleatoirementTrahir() {
+    void testAdversaireChangeDecisionJoueAleatoirementTrahir() {
         Random mockRandom = mock(Random.class);
         when(mockRandom.nextBoolean()).thenReturn(false); // Retourne false, donc Decision.TRAHIR
 
@@ -104,7 +104,7 @@ public class StrategieDonnantPourDeuxDonnantsTest {
     }
 
     @Test
-    public void testAdversaireRepeteCooperationApresChangement() {
+    void testAdversaireRepeteCooperationApresChangement() {
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();
 
         Tour[] tours = new Tour[4];
@@ -119,7 +119,7 @@ public class StrategieDonnantPourDeuxDonnantsTest {
     }
 
     @Test
-    public void testAdversaireRepeteTrahisonApresChangement() {
+    void testAdversaireRepeteTrahisonApresChangement() {
         StrategieDonnantPourDeuxDonnants strategie = new StrategieDonnantPourDeuxDonnants();
 
         Tour[] tours = new Tour[4];

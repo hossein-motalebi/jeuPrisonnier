@@ -12,8 +12,7 @@ public class StrategieDonnantDonnantSoupconneux implements Strategie {
             return Decision.TRAHIR;
         } else {
             Tour dernierTour = tours[tours.length - 1];
-            Decision derniereDecisionAdversaire = dernierTour.getDecisionJoueur(idAdversaire);
-            return derniereDecisionAdversaire;
+            return dernierTour.getDecisionJoueur(idAdversaire);
         }
     }
 }

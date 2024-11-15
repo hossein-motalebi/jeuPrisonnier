@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PrisonersDilemmaApplicationTests {
+class PrisonersDilemmaApplicationTests { //NOSONAR
 
 	@Test
-	void contextLoads() {
+	void contextLoads() { //NOSONAR
 	}
 
 }

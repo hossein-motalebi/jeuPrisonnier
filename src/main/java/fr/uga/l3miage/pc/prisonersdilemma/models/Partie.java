@@ -50,8 +50,8 @@ public class Partie {
         if (currentTourIndex != nbMaxTours )
             throw new IllegalStateException("le jeu n'est pas encore fini , cette méthode peu être accéder qu'à la fin");
 
-        return joueur1.getScore() == joueur2.getScore() ? 0
-                : joueur1.getScore() > joueur2.getScore() ? 1 : 2;
+        if (joueur1.getScore() == joueur2.getScore()) {return 0;}
+        return joueur1.getScore() > joueur2.getScore() ? 1 : 2;
 
     }
 
