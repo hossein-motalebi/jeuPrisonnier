@@ -16,27 +16,22 @@ public class StrategieDonnantPourDeuxDonnantsAleatoire implements Strategie {
 
     @Override
     public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
-        if (random.nextDouble() < PROBABILITE_ALEATOIRE) {
+        if (random.nextDouble() < PROBABILITE_ALEATOIRE || tours.length < 2) {
             // Jouer un coup aléatoire
             return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
         } else {
-            if (tours == null || tours.length < 2) {
-                // Moins de deux tours, jouer aléatoirement
-                return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
+            Tour avantDernierTour = tours[tours.length - 2];
+            Tour dernierTour = tours[tours.length - 1];
+
+            Decision avantDerniereDecisionAdversaire = avantDernierTour.getDecisionJoueur(idAdversaire);
+            Decision derniereDecisionAdversaire = dernierTour.getDecisionJoueur(idAdversaire);
+
+            if (avantDerniereDecisionAdversaire == derniereDecisionAdversaire) {
+                // Répété de l'adversaire
+                return derniereDecisionAdversaire;
             } else {
-                Tour avantDernierTour = tours[tours.length - 2];
-                Tour dernierTour = tours[tours.length - 1];
-
-                Decision avantDerniereDecisionAdversaire = avantDernierTour.getDecisionJoueur(idAdversaire);
-                Decision derniereDecisionAdversaire = dernierTour.getDecisionJoueur(idAdversaire);
-
-                if (avantDerniereDecisionAdversaire == derniereDecisionAdversaire) {
-                    // Répété de l'adversaire
-                    return derniereDecisionAdversaire;
-                } else {
-                    // Jouer aléatoirement
-                    return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
-                }
+                // Jouer aléatoirement
+                return random.nextBoolean() ? Decision.COOPERER : Decision.TRAHIR;
             }
         }
     }
