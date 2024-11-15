@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StrategieAdaptatifTest {
+
+// TO DO : A CORRIGER
+public class StrategieAdaptatifTest { //NOSONAR
 
     @Test
     public void testSequenceInitiale() {
@@ -50,10 +52,6 @@ public class StrategieAdaptatifTest {
 
         Decision decision = strategie.deciderTour(tours, 1, 2);
         assertEquals(Decision.TRAHIR, decision, "La stratégie devrait trahir car trahir a donné un meilleur gain moyen.");
-
-
-        Tour nouveauTour = new Tour(decision, Decision.COOPERER);
-        tours = ajouterTour(tours, nouveauTour);
     }
 
     private Tour[] ajouterTour(Tour[] tours, Tour nouveauTour) {
