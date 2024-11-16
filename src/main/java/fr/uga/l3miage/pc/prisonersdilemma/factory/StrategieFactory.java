@@ -11,11 +11,8 @@ public class StrategieFactory {
 
     /*
     *à ajouté une fois les stratégies implémentées
-    *case SONDEUR_NAIF -> new StrategieSondeurNaif(); //NOSONAR
-    *case SONDEUR_REPENTANT -> new StrategieSondeurRepentant();
-    *case VRAI_PACIFICATEUR -> new StrategieVraiPacificateur();
-    *case RANCUNIER -> new StrategieRancunier();
-    *case RANCUNIER_DOUX -> new StrategieRancunierDoux();
+    *case RANCUNIER -> new StrategieRancunier(); //NOSONAR
+    *case RANCUNIER_DOUX -> new StrategieRancunierDoux(); //NOSONAR
      */
 
     public static Strategie creeStrategie(TypeStrategie strategie) {
@@ -33,6 +30,9 @@ public class StrategieFactory {
             case TOUJOURS_COOPERER -> new StrategieToujoursCooperer();
             case ADAPTATIF -> new StrategieAdaptatif();
             case DONNANT_DONNANT_SOUPCONNEUX -> new StrategieDonnantDonnantSoupconneux();
+            case SONDEUR_NAIF -> new StrategieSondeurNaif();
+            case SONDEUR_REPENTANT -> new StrategieSondeurRepentant();
+            case VRAI_PACIFICATEUR -> new StrategieVraiPacificateur();
 
             default -> throw new IllegalArgumentException("Stratégie inconnue : " + strategie);
         };
