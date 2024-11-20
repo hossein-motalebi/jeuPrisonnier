@@ -2,10 +2,12 @@ package fr.uga.l3miage.pc.prisonersdilemma.service;
 
 public class PartieService { //NOSONAR
 
-    /*TODO //NOSONAR
-    Gérer les opérations liées aux joueurs.
-Créer de nouveaux joueurs (humains ou bots).
-Gérer l'abandon d'un joueur humain et sa substitution par un bot.
-Maintenir les informations sur les joueurs (par exemple, le score, l'historique des décisions).
+    /* TODO //NOSONAR
+    //Gérer le déroulement d'une partie du jeu.
+    //Coordonner les interactions entre les joueurs.
+    //Maintenir l'état de la partie en cours.
+    //Appliquer les règles du jeu pour chaque tour.
+    //Calculer les scores des joueurs.
      */
+
 }
