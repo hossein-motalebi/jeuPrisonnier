@@ -5,7 +5,6 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
 import fr.uga.l3miage.pc.prisonersdilemma.factory.StrategieFactory;
 import lombok.Getter;
 
-
 @Getter
 
 public class JoueurBot extends Joueur {
@@ -13,8 +12,8 @@ public class JoueurBot extends Joueur {
     private final TypeStrategie typeStrategie;
     private final Strategie strategie;
 
-    public JoueurBot(String nom , TypeStrategie typeStrategie){
-        super(nom);
+    public JoueurBot(String nom , TypeStrategie typeStrategie, int id) {
+        super(nom,id);
         if (typeStrategie == null) {
             throw new IllegalArgumentException("TypeStrategie cannot be null");
         }

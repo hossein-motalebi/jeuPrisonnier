@@ -10,7 +10,7 @@ class JoueurBotTest {
 
     @Test
     void testConstructor() {
-        JoueurBot joueurBot = new JoueurBot("TestBot", TypeStrategie.DONNANT_DONNANT);
+        JoueurBot joueurBot = new JoueurBot("TestBot", TypeStrategie.DONNANT_DONNANT,2);
         assertNotNull(joueurBot);
         assertEquals("TestBot", joueurBot.getNom());
         assertEquals(TypeStrategie.DONNANT_DONNANT, joueurBot.getTypeStrategie());
@@ -18,7 +18,7 @@ class JoueurBotTest {
     }
     @Test
     void testConstructorNullTypeStrategie() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> new JoueurBot("TestBot", null));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> new JoueurBot("TestBot", null,2));
         assertEquals("TypeStrategie cannot be null", exception.getMessage());
     }
 

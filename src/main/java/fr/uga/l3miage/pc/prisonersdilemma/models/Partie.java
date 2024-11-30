@@ -1,6 +1,8 @@
 package fr.uga.l3miage.pc.prisonersdilemma.models;
 
 import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
+import lombok.Getter;
+import lombok.ToString; //debug
 
 
 
@@ -22,6 +24,8 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
     *   partie.initTour() et ensuite  partie.finishTour(decision1,decision2)
  */
 
+@Getter
+@ToString //debug
 
 public class Partie {
 
@@ -112,7 +116,7 @@ public class Partie {
     }
 
     /* envois un copy de tours de partie, si des tours ne sont pas terminé, il n'est pas envoyé*/
-    protected Tour[] getToursCopy(){
+    public Tour[] getToursCopy(){
         Tour[] toursEnCours = new Tour[currentTourIndex];
         int i = 0;
         while( i < currentTourIndex && tours[i].estFini()){
@@ -121,6 +125,7 @@ public class Partie {
         }
         return toursEnCours;
     }
+
 
     private void updateScores(){
         Tour tourEnCours = tours[currentTourIndex];

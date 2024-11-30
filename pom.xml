@@ -85,6 +85,10 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
         <!-- PowerMock API pour Mockito2 -->
         <dependency>
             <groupId>org.powermock</groupId>
@@ -92,9 +96,27 @@
             <version>2.0.9</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>26.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+
 
         <!-- Autres dépendances si nécessaire -->
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>3.1.2</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -148,12 +170,7 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
-                        <configuration>
-                            <reports>
-                                <xml>true</xml>
-                                <html>true</html> <!-- Optionnel, pour avoir un rapport HTML -->
-                            </reports>
-                        </configuration>
+
                     </execution>
                 </executions>
             </plugin>

@@ -10,13 +10,12 @@ import lombok.Setter;
 @Setter
 public class JoueurHumain extends Joueur {
 
-    public JoueurHumain(String nom){
-        super(nom);
-
+    public JoueurHumain(String nom, int id) {
+        super(nom,id);
     }
 
     public JoueurBot abandonner(TypeStrategie strategie) {
-        JoueurBot joueurBot = new JoueurBot(this.getNom()+"(Bot)", strategie);
+        JoueurBot joueurBot = new JoueurBot(this.getNom()+"(Bot)", strategie , this.getId());
         joueurBot.augmenterScore(this.getScore());
         return joueurBot;
 

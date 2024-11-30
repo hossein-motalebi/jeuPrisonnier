@@ -14,10 +14,8 @@ class PartieTest {
 
     @BeforeEach
     void setUp() {
-        player1 = new JoueurHumain("hehe");
-        player1.setId(1);
-        player2 = new JoueurBot("hoho", TypeStrategie.DONNANT_DONNANT);
-        player2.setId(2);
+        player1 = new JoueurHumain("hehe",1);
+        player2 = new JoueurBot("hoho", TypeStrategie.DONNANT_DONNANT,2);
         partie = new Partie(2, player1, player2);
     }
 
