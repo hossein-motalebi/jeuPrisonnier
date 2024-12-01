@@ -1,6 +1,6 @@
 package fr.uga.l3miage.pc.prisonersdilemma.controller;
 
-import fr.uga.l3miage.pc.prisonersdilemma.DTO.*;
+import fr.uga.l3miage.pc.prisonersdilemma.dto.*;
 import fr.uga.l3miage.pc.prisonersdilemma.service.PartieService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;

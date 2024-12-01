@@ -1,15 +1,17 @@
-package fr.uga.l3miage.pc.prisonersdilemma.DTO;
+package fr.uga.l3miage.pc.prisonersdilemma.dto;
 
 import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @Builder
 
 public class OutPartieDTO {

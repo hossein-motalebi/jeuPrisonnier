@@ -1,6 +1,6 @@
 package fr.uga.l3miage.pc.prisonersdilemma.mappers;
 
-import fr.uga.l3miage.pc.prisonersdilemma.DTO.OutPartieDTO;
+import fr.uga.l3miage.pc.prisonersdilemma.dto.OutPartieDTO;
 import fr.uga.l3miage.pc.prisonersdilemma.models.*;
 
 public class OutPartieDtoMapper {
