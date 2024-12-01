@@ -5,24 +5,21 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.ResultatTour;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Strategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 
-// A COMPLETER ET CORRIGER
-public class StrategieAdaptatif implements Strategie { //NOSONAR
+public class StrategieAdaptatif implements Strategie {
     private static final Decision[] SEQUENCE_INITIALE = {
             Decision.COOPERER, Decision.COOPERER, Decision.COOPERER, Decision.COOPERER, Decision.COOPERER, Decision.COOPERER,
             Decision.TRAHIR, Decision.TRAHIR, Decision.TRAHIR, Decision.TRAHIR, Decision.TRAHIR
     };
+    private int indiceSequence = 0;
 
     private double totalGainCooperer = 0;
     private int countCooperer = 0;
     private double totalGainTrahir = 0;
     private int countTrahir = 0;
 
-    // A COMPLETER ET CORRIGER
     @Override
-    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) { //NOSONAR
-        int tourActuel = tours != null ? tours.length : 0;
-
-        // Mettre à jour les gains basés sur les tours précédents
+    public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
+        // Mise à jour des gains
         if (tours != null && tours.length > 0) {
             Tour dernierTour = tours[tours.length - 1];
             Decision decisionPrecedente = dernierTour.getDecisionJoueur(idJoueur);
@@ -37,11 +34,11 @@ public class StrategieAdaptatif implements Strategie { //NOSONAR
             }
         }
 
-        // Séquence initiale
-        if (tourActuel < SEQUENCE_INITIALE.length) {
-            return SEQUENCE_INITIALE[tourActuel];
+        if (indiceSequence < SEQUENCE_INITIALE.length) {
+            Decision decision = SEQUENCE_INITIALE[indiceSequence];
+            indiceSequence++;
+            return decision;
         } else {
-            // Choix adaptatif basé sur le gain moyen
             double moyenneCooperer = countCooperer > 0 ? totalGainCooperer / countCooperer : 0;
             double moyenneTrahir = countTrahir > 0 ? totalGainTrahir / countTrahir : 0;
 
@@ -50,7 +47,6 @@ public class StrategieAdaptatif implements Strategie { //NOSONAR
             } else if (moyenneTrahir > moyenneCooperer) {
                 return Decision.TRAHIR;
             } else {
-                // En cas d'égalité, coopérer par défaut
                 return Decision.COOPERER;
             }
         }
