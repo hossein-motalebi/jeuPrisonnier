@@ -2,7 +2,9 @@ package fr.uga.l3miage.pc.prisonersdilemma.models;
 
 import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.ResultatTour;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 /*
 * Class Tour peut utiliser de deux façons :
@@ -13,21 +15,24 @@ import lombok.Getter;
 * les gagnants des joueurs sont calculés automatiquement en utilisant la méthode CalculerGain() après avoir défini les décisions des joueurs
 * et ils ne sont pas accessibles pour modification ni setter manuellement
 * */
+@Setter
 @Getter
+@EqualsAndHashCode
 
 public class Tour {
     private Decision decisionJoueur1;
     private Decision decisionJoueur2;
     private ResultatTour gainJoueur1;
     private ResultatTour gainJoueur2;
-    private boolean estFini=false;
+    private boolean estFini = false;
 
-    //constructeur par défault
-    public Tour(){
+    // constructeur par défault
+    public Tour() {
     }
 
-    //constructeur avec decision des joueurs en parametre
-    //on initialise les decisions des joueurs et on calcule gainJoueur1 et gainJoueur2
+    // constructeur avec decision des joueurs en parametre
+    // on initialise les decisions des joueurs et on calcule gainJoueur1 et
+    // gainJoueur2
     public Tour(Decision decisionJoueur1, Decision decisionJoueur2) {
         setDecisionJoueur1(decisionJoueur1);
         setDecisionJoueur2(decisionJoueur2);
@@ -68,52 +73,49 @@ public class Tour {
         this.gainJoueur2 = gainJoueur2;
     }
 
-    public Decision getDecisionJoueur(int joueur){
-        if(joueur == 1){
+    public Decision getDecisionJoueur(int joueur) {
+        if (joueur == 1) {
             return decisionJoueur1;
-        }else if(joueur == 2){
+        } else if (joueur == 2) {
             return decisionJoueur2;
-        }else{
+        } else {
             throw new IllegalArgumentException("joueur doit être 1 ou 2");
         }
     }
 
-    public ResultatTour getGainJoueur(int joueur){
-        if(joueur == 1){
+    public ResultatTour getGainJoueur(int joueur) {
+        if (joueur == 1) {
             return gainJoueur1;
-        }else if(joueur == 2){
+        } else if (joueur == 2) {
             return gainJoueur2;
-        }else{
+        } else {
             throw new IllegalArgumentException("joueur doit être 1 ou 2");
         }
     }
 
-    protected void setEstFini(boolean estFini) {
-        this.estFini = estFini;
-    }
 
-    public boolean estFini(){
+
+    public boolean estFini() {
         return estFini;
     }
 
-    public void calculerGain(){
+    public void calculerGain() {
         if (decisionJoueur1 == null || decisionJoueur2 == null) {
             throw new IllegalStateException("Les décisions des joueurs ne sont pas encore définies");
         }
         if (decisionJoueur1 == Decision.COOPERER && decisionJoueur2 == Decision.COOPERER) {
-            setGainJoueur1(ResultatTour.RECOMPENSE); //chaque gain est de 3 points
+            setGainJoueur1(ResultatTour.RECOMPENSE); // chaque gain est de 3 points
             setGainJoueur2(ResultatTour.RECOMPENSE);
         } else if (decisionJoueur1 == Decision.TRAHIR && decisionJoueur2 == Decision.TRAHIR) {
-            setGainJoueur1(ResultatTour.PUNITION); //chaque gain est de 1 point
+            setGainJoueur1(ResultatTour.PUNITION); // chaque gain est de 1 point
             setGainJoueur2(ResultatTour.PUNITION);
         } else if (decisionJoueur1 == Decision.TRAHIR && decisionJoueur2 == Decision.COOPERER) {
-            setGainJoueur1(ResultatTour.TENTATION); //celle qui traite gagne 5 points et l'autre 0
+            setGainJoueur1(ResultatTour.TENTATION); // celle qui traite gagne 5 points et l'autre 0
             setGainJoueur2(ResultatTour.DUPERIE);
-        } else { //decisionJoueur1 == Decision.COOPERER && decisionJoueur2 == Decision.TRAHIR
+        } else { // decisionJoueur1 == Decision.COOPERER && decisionJoueur2 == Decision.TRAHIR
             setGainJoueur1(ResultatTour.DUPERIE);
             setGainJoueur2(ResultatTour.TENTATION);
         }
     }
-
 
 }
