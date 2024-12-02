@@ -18,7 +18,7 @@ public class StrategieDonnantDonnant implements Strategie {
         } else {
 
             Tour dernierTour = tours[tours.length - 1];
-            return dernierTour.getDecisionJoueur(2);
+            return dernierTour.getDecisionJoueur(idAdversaire);
         }
     }
 

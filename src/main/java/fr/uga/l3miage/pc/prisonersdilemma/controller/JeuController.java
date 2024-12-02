@@ -19,11 +19,17 @@ public class JeuController { //NOSONAR
     public  JeuController(PartieService partieService){
         this.partieService=partieService;
     }
-    //TODO //NOSONAR
     @PostMapping("/demarrer")
     public OutPartieDTO demarrerPartie(@Valid @RequestBody InitPartieDTO initPartieDto ){
          return partieService.demarrerPartie(initPartieDto);
     }
+
+
+    @PostMapping("/jouer-tour")
+    public OutPartieDTO jouerTour(@Valid @RequestBody DecisionDTO decisionDTO){
+        return partieService.jouerTour(decisionDTO);
+    }
+
 
     @RequestMapping("/error")
     public String handleError() {

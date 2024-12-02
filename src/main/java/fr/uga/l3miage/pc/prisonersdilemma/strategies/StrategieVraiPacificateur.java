@@ -29,7 +29,7 @@ public class StrategieVraiPacificateur implements Strategie {
     public Decision deciderTour(Tour[] tours, int idJoueur, int idAdversaire) {
         if (tours.length==0)
             return Decision.COOPERER;
-        Decision desPrecedentAdv=tours[tours.length-1].getDecisionJoueur(2);
+        Decision desPrecedentAdv=tours[tours.length-1].getDecisionJoueur(idAdversaire);
         if (desPrecedentAdv==Decision.TRAHIR)
             trahisonConsecutive++;
         else {
