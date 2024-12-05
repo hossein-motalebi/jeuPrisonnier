@@ -57,7 +57,6 @@ public class PartieService { //NOSONAR
             decision2 = joueurBot.prendreDecision(partie.getToursCopy());
         }
 
-
         partie.initTour(decision1, decision2);
         partie.finishTour();
 
