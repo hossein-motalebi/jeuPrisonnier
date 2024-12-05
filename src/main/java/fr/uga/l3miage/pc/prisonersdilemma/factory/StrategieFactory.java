@@ -33,6 +33,8 @@ public class StrategieFactory {
             case SONDEUR_NAIF -> new StrategieSondeurNaif();
             case SONDEUR_REPENTANT -> new StrategieSondeurRepentant();
             case VRAI_PACIFICATEUR -> new StrategieVraiPacificateur();
+            case RANCUNIER -> new StrategieRancunier();
+            case RANCUNIER_DOUX -> new StrategieRancunierDoux();
 
             default -> throw new IllegalArgumentException("Stratégie inconnue : " + strategie);
         };
