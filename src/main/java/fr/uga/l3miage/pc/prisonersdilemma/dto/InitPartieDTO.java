@@ -24,6 +24,9 @@ public class InitPartieDTO {
     private boolean joueur2bot;
     private TypeStrategie strategieJoueur1;
 
+    private boolean strategieExterneJoueur1=false;
+    private boolean strategieExterneJoueur2=false;
+
     private TypeStrategie strategieJoueur2;
     @Positive
     private int nbMaxTours;

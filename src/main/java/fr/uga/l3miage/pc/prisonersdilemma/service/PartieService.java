@@ -22,8 +22,11 @@ public class PartieService { //NOSONAR
     }
 
     public OutPartieDTO demarrerPartie(InitPartieDTO initPartieDTO) {
-        Joueur joueur1=joueurService.creerUser(initPartieDTO.getNomJoueur1(),initPartieDTO.isJoueur1bot(),initPartieDTO.getStrategieJoueur1());
-        Joueur joueur2=joueurService.creerUser(initPartieDTO.getNomJoueur2(),initPartieDTO.isJoueur2bot(),initPartieDTO.getStrategieJoueur2());
+        joueurService.setCompteurJoueur(1);
+        Joueur joueur1=joueurService.creerUser(initPartieDTO.getNomJoueur1(),initPartieDTO.isJoueur1bot(),initPartieDTO.getStrategieJoueur1()
+        , initPartieDTO.isStrategieExterneJoueur1());
+        Joueur joueur2=joueurService.creerUser(initPartieDTO.getNomJoueur2(),initPartieDTO.isJoueur2bot(),initPartieDTO.getStrategieJoueur2()
+        , initPartieDTO.isStrategieExterneJoueur2());
         this.partie=new Partie(initPartieDTO.getNbMaxTours(),joueur1,joueur2);
         return OutPartieDtoMapper.map(partie);
 

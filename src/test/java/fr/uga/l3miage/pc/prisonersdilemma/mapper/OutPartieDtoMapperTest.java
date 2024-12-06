@@ -1,6 +1,7 @@
 package fr.uga.l3miage.pc.prisonersdilemma.mapper;
 
 import fr.uga.l3miage.pc.prisonersdilemma.dto.OutPartieDTO;
+import fr.uga.l3miage.pc.prisonersdilemma.factory.StrategieFactory;
 import fr.uga.l3miage.pc.prisonersdilemma.models.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,8 +29,9 @@ class OutPartieDtoMapperTest {
 
     @Test
     void map_withBotPlayers() {
-        JoueurBot joueur1 = new JoueurBot("kian", TypeStrategie.ALEATOIRE, 1);
-        JoueurBot joueur2 = new JoueurBot("hossein", TypeStrategie.DONNANT_DONNANT_ALEATOIRE, 2);
+
+        JoueurBot joueur1 = new JoueurBot("kian", StrategieFactory.creeStrategie(TypeStrategie.ALEATOIRE), 1);
+        JoueurBot joueur2 = new JoueurBot("hossein", StrategieFactory.creeStrategie(TypeStrategie.DONNANT_DONNANT_ALEATOIRE), 2);
         Partie partie = new Partie(5, joueur1, joueur2);
 
         OutPartieDTO result = OutPartieDtoMapper.map(partie);
@@ -41,14 +43,12 @@ class OutPartieDtoMapperTest {
         assertEquals(5, result.getNbTourLeft());
         assertTrue(result.isJoueur1bot());
         assertTrue(result.isJoueur2bot());
-        assertEquals(TypeStrategie.ALEATOIRE, result.getStrategieJoueur1());
-        assertEquals(TypeStrategie.DONNANT_DONNANT_ALEATOIRE, result.getStrategieJoueur2());
     }
 
     @Test
     void map_withMixedPlayers() {
         Joueur joueur1 = new JoueurHumain("ali", 1);
-        JoueurBot joueur2 = new JoueurBot("majid", TypeStrategie.TOUJOURS_TRAHIR, 2);
+        JoueurBot joueur2 = new JoueurBot("majid", StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_TRAHIR), 2);
         Partie partie = new Partie(5, joueur1, joueur2);
 
         OutPartieDTO result = OutPartieDtoMapper.map(partie);
@@ -60,7 +60,6 @@ class OutPartieDtoMapperTest {
         assertEquals(5, result.getNbTourLeft());
         assertFalse(result.isJoueur1bot());
         assertTrue(result.isJoueur2bot());
-        assertEquals(TypeStrategie.TOUJOURS_TRAHIR, result.getStrategieJoueur2());
     }
 
 }

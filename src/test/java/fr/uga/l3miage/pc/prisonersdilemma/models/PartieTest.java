@@ -2,6 +2,7 @@ package fr.uga.l3miage.pc.prisonersdilemma.models;
 
 import fr.uga.l3miage.pc.prisonersdilemma.enums.Decision;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
+import fr.uga.l3miage.pc.prisonersdilemma.factory.StrategieFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +16,7 @@ class PartieTest {
     @BeforeEach
     void setUp() {
         player1 = new JoueurHumain("hehe",1);
-        player2 = new JoueurBot("hoho", TypeStrategie.DONNANT_DONNANT,2);
+        player2 = new JoueurBot("hoho", StrategieFactory.creeStrategie(TypeStrategie.DONNANT_DONNANT),2);
         partie = new Partie(2, player1, player2);
     }
 

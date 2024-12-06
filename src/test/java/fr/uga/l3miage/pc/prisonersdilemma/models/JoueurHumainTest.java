@@ -1,6 +1,7 @@
 package fr.uga.l3miage.pc.prisonersdilemma.models;
 
 import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
+import fr.uga.l3miage.pc.prisonersdilemma.factory.StrategieFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,10 +37,10 @@ class JoueurHumainTest {
 
     @Test
     void testAbandonner() {
-        JoueurBot joueurBot = joueurHumain.abandonner(TypeStrategie.DONNANT_DONNANT);
+        JoueurBot joueurBot = joueurHumain.abandonner(StrategieFactory.creeStrategie(TypeStrategie.DONNANT_DONNANT));
         assertNotNull(joueurBot);
         assertEquals("TestJoueurHumain(Bot)", joueurBot.getNom());
-        assertEquals(TypeStrategie.DONNANT_DONNANT, joueurBot.getTypeStrategie());
+
         //test avec un strategies qui n'existe pas, il doit retourner une erreur
 
     }

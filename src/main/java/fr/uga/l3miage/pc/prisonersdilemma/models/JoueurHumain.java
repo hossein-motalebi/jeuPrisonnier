@@ -1,7 +1,6 @@
 package fr.uga.l3miage.pc.prisonersdilemma.models;
 
 
-import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ public class JoueurHumain extends Joueur {
         super(nom,id);
     }
 
-    public JoueurBot abandonner(TypeStrategie strategie) {
+    public JoueurBot abandonner(Strategie strategie) {
         JoueurBot joueurBot = new JoueurBot(this.getNom()+"(Bot)", strategie , this.getId());
         joueurBot.augmenterScore(this.getScore());
         return joueurBot;

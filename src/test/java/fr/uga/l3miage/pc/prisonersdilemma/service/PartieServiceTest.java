@@ -2,12 +2,9 @@ package fr.uga.l3miage.pc.prisonersdilemma.service;
 
 import fr.uga.l3miage.pc.prisonersdilemma.dto.*;
 import fr.uga.l3miage.pc.prisonersdilemma.enums.*;
+import fr.uga.l3miage.pc.prisonersdilemma.factory.StrategieFactory;
 import fr.uga.l3miage.pc.prisonersdilemma.mappers.OutPartieDtoMapper;
-import fr.uga.l3miage.pc.prisonersdilemma.models.Joueur;
-import fr.uga.l3miage.pc.prisonersdilemma.models.JoueurBot;
-import fr.uga.l3miage.pc.prisonersdilemma.models.JoueurHumain;
-import fr.uga.l3miage.pc.prisonersdilemma.models.Partie;
-import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
+import fr.uga.l3miage.pc.prisonersdilemma.models.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -37,19 +34,20 @@ class PartieServiceTest {
         initPartieDTO.setStrategieJoueur2(TypeStrategie.PAVLOV);
         initPartieDTO.setNbMaxTours(10);
 
+        Strategie strategie= StrategieFactory.creeStrategie(TypeStrategie.PAVLOV);
         Joueur joueur1 = new JoueurHumain("Player1", 1);
-        Joueur joueur2 = new JoueurBot("Player2", TypeStrategie.PAVLOV, 2);
+        Joueur joueur2 = new JoueurBot("Player2", strategie, 2);
 
-        when(joueurService.creerUser("Player1", false, null)).thenReturn(joueur1);
-        when(joueurService.creerUser("Player2", true, TypeStrategie.PAVLOV)).thenReturn(joueur2);
+        when(joueurService.creerUser("Player1", false, null,false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Player2", true, TypeStrategie.PAVLOV,false)).thenReturn(joueur2);
 
         OutPartieDTO actualOutPartieDTO = partieService.demarrerPartie(initPartieDTO);
 
         OutPartieDTO expectedOutPartieDTO = OutPartieDtoMapper.map(new Partie(10, joueur1, joueur2));
 
         assertEquals(expectedOutPartieDTO, actualOutPartieDTO);
-        verify(joueurService, times(1)).creerUser("Player1", false, null);
-        verify(joueurService, times(1)).creerUser("Player2", true, TypeStrategie.PAVLOV);
+        verify(joueurService, times(1)).creerUser("Player1", false, null,false);
+        verify(joueurService, times(1)).creerUser("Player2", true, TypeStrategie.PAVLOV , false);
     }
 
     @Test
@@ -62,11 +60,12 @@ class PartieServiceTest {
         initPartieDTO.setJoueur2bot(false);
         initPartieDTO.setNbMaxTours(5);
 
+
         Joueur joueur1 = new JoueurHumain("human1", 1);
         Joueur joueur2 = new JoueurHumain("human2", 2);
 
-        when(joueurService.creerUser("Human1", false, null)).thenReturn(joueur1);
-        when(joueurService.creerUser("Human2", false, null)).thenReturn(joueur2);
+        when(joueurService.creerUser("Human1", false, null,false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Human2", false, null,false)).thenReturn(joueur2);
         partieService.demarrerPartie(initPartieDTO);
 
         // Création du DecisionDTO avec les décisions des deux joueurs
@@ -107,8 +106,8 @@ class PartieServiceTest {
         Joueur joueur1 = new JoueurHumain("human1", 1);
         Joueur joueur2 = new JoueurHumain("human2", 2);
 
-        when(joueurService.creerUser("Human1", false, null)).thenReturn(joueur1);
-        when(joueurService.creerUser("Human2", false, null)).thenReturn(joueur2);
+        when(joueurService.creerUser("Human1", false, null,false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Human2", false, null,false)).thenReturn(joueur2);
         partieService.demarrerPartie(initPartieDTO);
 
         // Création du DecisionDTO avec une décision manquante pour le joueur 1
@@ -132,12 +131,14 @@ class PartieServiceTest {
         initPartieDTO.setJoueur2bot(true);
         initPartieDTO.setStrategieJoueur2(TypeStrategie.TOUJOURS_COOPERER);
         initPartieDTO.setNbMaxTours(5);
+        initPartieDTO.setStrategieExterneJoueur2(true);
 
+        Strategie strategie= StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_COOPERER);
         Joueur joueur1 = new JoueurHumain("human1", 1);
-        Joueur joueur2 = new JoueurBot("Bot2", TypeStrategie.TOUJOURS_COOPERER, 2);
+        Joueur joueur2 = new JoueurBot("Bot2", strategie, 2);
 
-        when(joueurService.creerUser("Human1", false, null)).thenReturn(joueur1);
-        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_COOPERER)).thenReturn(joueur2);
+        when(joueurService.creerUser("Human1", false, null,false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_COOPERER,true)).thenReturn(joueur2);
 
         OutPartieDTO outPartieAttenduDto = OutPartieDtoMapper.map(new Partie(5, joueur1, joueur2));
         outPartieAttenduDto.setScoreJoueur1(5);
@@ -177,11 +178,12 @@ class PartieServiceTest {
         initPartieDTO.setStrategieJoueur2(TypeStrategie.TOUJOURS_TRAHIR);
         initPartieDTO.setNbMaxTours(5);
 
-        Joueur joueur1 = new JoueurBot("Bot1",TypeStrategie.TOUJOURS_TRAHIR, 1);
-        Joueur joueur2 = new JoueurBot("Bot2",TypeStrategie.TOUJOURS_TRAHIR, 2);
+        Strategie strategie= StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_TRAHIR);
+        Joueur joueur1 = new JoueurBot("Bot1",strategie, 1);
+        Joueur joueur2 = new JoueurBot("Bot2",strategie, 2);
 
-        when(joueurService.creerUser("Bot1", true, TypeStrategie.TOUJOURS_TRAHIR)).thenReturn(joueur1);
-        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_TRAHIR)).thenReturn(joueur2);
+        when(joueurService.creerUser("Bot1", true, TypeStrategie.TOUJOURS_TRAHIR,false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_TRAHIR,false)).thenReturn(joueur2);
         partieService.demarrerPartie(initPartieDTO);
 
         OutPartieDTO outPartieAttenduDto = OutPartieDtoMapper.map(new Partie(5, joueur1, joueur2));

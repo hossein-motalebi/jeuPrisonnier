@@ -23,19 +23,8 @@ public class OutPartieDtoMapper {
                 .historique(partie.getToursCopy());
 
 
-        if (joueur1 instanceof JoueurBot myBot1){
-            builder.joueur1bot(true)
-                    .strategieJoueur1(myBot1.getTypeStrategie());
-        }
-        else
-            builder.joueur1bot(false);
-
-        if (joueur2 instanceof JoueurBot myBot2){
-            builder.joueur2bot(true)
-                    .strategieJoueur2(myBot2.getTypeStrategie());
-        }
-        else
-            builder.joueur2bot(false);
+        builder.joueur1bot(joueur1 instanceof JoueurBot);
+        builder.joueur2bot(joueur2 instanceof JoueurBot);
 
         return builder.build();
     }

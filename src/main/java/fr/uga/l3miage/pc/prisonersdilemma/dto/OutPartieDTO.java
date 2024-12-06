@@ -1,6 +1,5 @@
 package fr.uga.l3miage.pc.prisonersdilemma.dto;
 
-import fr.uga.l3miage.pc.prisonersdilemma.enums.TypeStrategie;
 import fr.uga.l3miage.pc.prisonersdilemma.models.Tour;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,8 +28,6 @@ public class OutPartieDTO {
     private int idPlayer2;
     private boolean joueur2bot;
     private boolean joueur1bot;
-    private TypeStrategie strategieJoueur2;
-    private TypeStrategie strategieJoueur1;
     private int nbTourLeft;
     private int scoreJoueur1;
     private int scoreJoueur2;

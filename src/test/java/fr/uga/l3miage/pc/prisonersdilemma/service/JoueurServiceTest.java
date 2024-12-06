@@ -15,9 +15,8 @@ class JoueurServiceTest {
     void creerUserBotTest(){
         JoueurService joueurService = new JoueurService();
 
-        Joueur joueur1 = joueurService.creerUser("Player1", true, TypeStrategie.PAVLOV);
+        Joueur joueur1 = joueurService.creerUser("Player1", true, TypeStrategie.PAVLOV,false);
         assertEquals("Player1", joueur1.getNom());
-        assertEquals(TypeStrategie.PAVLOV, ((JoueurBot)joueur1).getTypeStrategie());
         assertInstanceOf(JoueurBot.class, joueur1);
     }
 
@@ -25,7 +24,7 @@ class JoueurServiceTest {
     void creerUserHumainTest(){
         JoueurService joueurService = new JoueurService();
 
-        Joueur joueur1 = joueurService.creerUser("Player1", false, null);
+        Joueur joueur1 = joueurService.creerUser("Player1", false, null,false);
         assertEquals("Player1", joueur1.getNom());
         assertInstanceOf(JoueurHumain.class, joueur1);
     }
@@ -33,7 +32,7 @@ class JoueurServiceTest {
     void creerUserHumainAvecStraTest(){
         JoueurService joueurService = new JoueurService();
 
-        Joueur joueur1 = joueurService.creerUser("Player1", false, TypeStrategie.PAVLOV);
+        Joueur joueur1 = joueurService.creerUser("Player1", false, TypeStrategie.PAVLOV,false);
         assertEquals("Player1", joueur1.getNom());
         assertInstanceOf(JoueurHumain.class, joueur1);
     }
