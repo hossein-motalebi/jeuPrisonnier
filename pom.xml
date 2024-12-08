@@ -103,6 +103,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>fr.uga.strats.g8</groupId>
+            <artifactId>generated_strats</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/generated_strats-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
 
         <!-- Autres dépendances si nécessaire -->
     </dependencies>
