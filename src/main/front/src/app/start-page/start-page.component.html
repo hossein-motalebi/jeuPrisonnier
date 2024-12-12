@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="players-container">
+    <!-- Joueur 1 -->
+    <div class="player-side">
+      <img src="assets/images/detainee.png" alt="Joueur 1" class="player-image" />
+      <mat-form-field appearance="outline" class="player-input">
+        <mat-label>Nom Joueur 1</mat-label>
+        <input matInput [(ngModel)]="player1Name" placeholder="Entrez nom joueur 1" />
+      </mat-form-field>
+    </div>
+
+    <!-- Joueur 2 -->
+    <div class="player-side">
+      <img src="assets/images/detainee.png" alt="Joueur 2" class="player-image" />
+      <mat-form-field appearance="outline" class="player-input">
+        <mat-label>Nom Joueur 2</mat-label>
+        <input matInput [(ngModel)]="player2Name" placeholder="Entrez nom joueur 2" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="bottom-container">
+    <div class="tours-container">
+
+      <mat-form-field appearance="outline" class="tours-input">
+        <mat-label>Nombre de parties</mat-label>
+        <input matInput type="number" [(ngModel)]="nbTours" min="0" max="30"/>
+      </mat-form-field>
+
+    </div>
+
+    <button mat-raised-button color="primary" (click)="commencer()" [disabled]="!canStart">
+      Commencer
+    </button>
+  </div>
+</div>

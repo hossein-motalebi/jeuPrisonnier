@@ -1,0 +1,51 @@
+.jeu-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.haut-container {
+  display: flex;
+  flex: 1;
+}
+
+.joueur-container {
+  flex: 1;
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.historique {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.historique th,
+.historique td {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 8px;
+}
+
+.score-total {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.bas-container {
+  padding: 10px;
+  text-align: center;
+}
