@@ -3,10 +3,7 @@ package fr.uga.l3miage.pc.prisonersdilemma.controller;
 import fr.uga.l3miage.pc.prisonersdilemma.dto.*;
 import fr.uga.l3miage.pc.prisonersdilemma.service.PartieService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -31,7 +28,7 @@ public class JeuController { //NOSONAR
     }
 
 
-    @RequestMapping("/error")
+    @GetMapping("/error")
     public String handleError() {
         return "The requested resource was not found.";
     }
