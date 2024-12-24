@@ -1,0 +1,159 @@
+/* src/app/play-partie/play-partie.component.css */
+
+.game-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.player {
+  flex: 1;
+  margin-right: 16px;
+  position: relative;
+}
+
+.player:last-child {
+  margin-right: 0;
+}
+
+.player span {
+  display: block;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.actions {
+  margin-top: 8px;
+}
+
+.btn-abandon {
+  margin-right: 8px;
+}
+
+.abandon-options {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: #eef;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  z-index: 10;
+  width: 220px; /* Slightly increased width for better content fit */
+  max-height: 300px; /* Limit the height to prevent overflow */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+.history-table th, .history-table td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.history-table th {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+.decision-section {
+  margin-top: 16px;
+}
+
+.decision-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.decision-group label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #555;
+}
+
+.decision-group input[type="radio"] {
+  margin-right: 8px;
+}
+
+.btn-action, .btn-abandon, .btn-approve, .btn-cancel {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 8px;
+}
+
+.btn-action {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-action:hover {
+  background-color: #218838;
+}
+
+.btn-abandon {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-abandon:hover {
+  background-color: #c82333;
+}
+
+.btn-approve {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-approve:hover {
+  background-color: #0056b3;
+}
+
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #5a6268;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.checkbox-group label {
+  margin-left: 8px;
+  font-weight: 400;
+  color: #555;
+}
+
+.end-game {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 1.2em;
+  color: #28a745;
+}
