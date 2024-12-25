@@ -18,8 +18,8 @@ export class InitPartieComponent {
   nomJoueur2 = '';
   joueur1bot = false;
   joueur2bot = false;
-  strategieJoueur1: TypeStrategie = TypeStrategie.DONNANT_DONNANT;
-  strategieJoueur2: TypeStrategie = TypeStrategie.DONNANT_DONNANT;
+  strategieJoueur1?: TypeStrategie ;
+  strategieJoueur2?: TypeStrategie ;
   strategieExterneJoueur1 = false;
   strategieExterneJoueur2 = false;
   nbMaxTours = 5;

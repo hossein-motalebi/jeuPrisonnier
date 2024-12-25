@@ -146,8 +146,7 @@
     </div>
 
     <br />
-    <button (click)="onJouerCoup()" class="btn-action">Jouer</button>
-  </div>
+    <button (click)="onJouerCoup()" class="btn-action" [disabled]="!peutJouer">Jouer</button>  </div>
 </div>
 
 <ng-template #pasDePartie>

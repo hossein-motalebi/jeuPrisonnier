@@ -9,6 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -34,20 +37,20 @@ class PartieServiceTest {
         initPartieDTO.setStrategieJoueur2(TypeStrategie.PAVLOV);
         initPartieDTO.setNbMaxTours(10);
 
-        Strategie strategie= StrategieFactory.creeStrategie(TypeStrategie.PAVLOV);
+        Strategie strategie = StrategieFactory.creeStrategie(TypeStrategie.PAVLOV);
         Joueur joueur1 = new JoueurHumain("Player1", 1);
         Joueur joueur2 = new JoueurBot("Player2", strategie, 2);
 
-        when(joueurService.creerUser("Player1", false, null,false)).thenReturn(joueur1);
-        when(joueurService.creerUser("Player2", true, TypeStrategie.PAVLOV,false)).thenReturn(joueur2);
+        when(joueurService.creerUser("Player1", false, null, false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Player2", true, TypeStrategie.PAVLOV, false)).thenReturn(joueur2);
 
         OutPartieDTO actualOutPartieDTO = partieService.demarrerPartie(initPartieDTO);
 
         OutPartieDTO expectedOutPartieDTO = OutPartieDtoMapper.map(new Partie(10, joueur1, joueur2));
 
         assertEquals(expectedOutPartieDTO, actualOutPartieDTO);
-        verify(joueurService, times(1)).creerUser("Player1", false, null,false);
-        verify(joueurService, times(1)).creerUser("Player2", true, TypeStrategie.PAVLOV , false);
+        verify(joueurService, times(1)).creerUser("Player1", false, null, false);
+        verify(joueurService, times(1)).creerUser("Player2", true, TypeStrategie.PAVLOV, false);
     }
 
     @Test
@@ -60,12 +63,11 @@ class PartieServiceTest {
         initPartieDTO.setJoueur2bot(false);
         initPartieDTO.setNbMaxTours(5);
 
-
         Joueur joueur1 = new JoueurHumain("human1", 1);
         Joueur joueur2 = new JoueurHumain("human2", 2);
 
-        when(joueurService.creerUser("Human1", false, null,false)).thenReturn(joueur1);
-        when(joueurService.creerUser("Human2", false, null,false)).thenReturn(joueur2);
+        when(joueurService.creerUser("Human1", false, null, false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Human2", false, null, false)).thenReturn(joueur2);
         partieService.demarrerPartie(initPartieDTO);
 
         // Création du DecisionDTO avec les décisions des deux joueurs
@@ -106,8 +108,8 @@ class PartieServiceTest {
         Joueur joueur1 = new JoueurHumain("human1", 1);
         Joueur joueur2 = new JoueurHumain("human2", 2);
 
-        when(joueurService.creerUser("Human1", false, null,false)).thenReturn(joueur1);
-        when(joueurService.creerUser("Human2", false, null,false)).thenReturn(joueur2);
+        when(joueurService.creerUser("Human1", false, null, false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Human2", false, null, false)).thenReturn(joueur2);
         partieService.demarrerPartie(initPartieDTO);
 
         // Création du DecisionDTO avec une décision manquante pour le joueur 1
@@ -133,21 +135,20 @@ class PartieServiceTest {
         initPartieDTO.setNbMaxTours(5);
         initPartieDTO.setStrategieExterneJoueur2(true);
 
-        Strategie strategie= StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_COOPERER);
+        Strategie strategie = StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_COOPERER);
         Joueur joueur1 = new JoueurHumain("human1", 1);
         Joueur joueur2 = new JoueurBot("Bot2", strategie, 2);
 
-        when(joueurService.creerUser("Human1", false, null,false)).thenReturn(joueur1);
-        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_COOPERER,true)).thenReturn(joueur2);
+        when(joueurService.creerUser("Human1", false, null, false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_COOPERER, true)).thenReturn(joueur2);
 
         OutPartieDTO outPartieAttenduDto = OutPartieDtoMapper.map(new Partie(5, joueur1, joueur2));
         outPartieAttenduDto.setScoreJoueur1(5);
         outPartieAttenduDto.setScoreJoueur2(0);
         outPartieAttenduDto.setNbTourLeft(4);
-        Tour tour= new Tour(Decision.TRAHIR, Decision.COOPERER);
+        Tour tour = new Tour(Decision.TRAHIR, Decision.COOPERER);
         tour.setEstFini(true);
-        outPartieAttenduDto.setHistorique(new Tour[] {tour});
-
+        outPartieAttenduDto.setHistorique(new Tour[] { tour });
 
         partieService.demarrerPartie(initPartieDTO);
         // Décision du bot fournie (doit être ignorée)
@@ -178,21 +179,21 @@ class PartieServiceTest {
         initPartieDTO.setStrategieJoueur2(TypeStrategie.TOUJOURS_TRAHIR);
         initPartieDTO.setNbMaxTours(5);
 
-        Strategie strategie= StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_TRAHIR);
-        Joueur joueur1 = new JoueurBot("Bot1",strategie, 1);
-        Joueur joueur2 = new JoueurBot("Bot2",strategie, 2);
+        Strategie strategie = StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_TRAHIR);
+        Joueur joueur1 = new JoueurBot("Bot1", strategie, 1);
+        Joueur joueur2 = new JoueurBot("Bot2", strategie, 2);
 
-        when(joueurService.creerUser("Bot1", true, TypeStrategie.TOUJOURS_TRAHIR,false)).thenReturn(joueur1);
-        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_TRAHIR,false)).thenReturn(joueur2);
+        when(joueurService.creerUser("Bot1", true, TypeStrategie.TOUJOURS_TRAHIR, false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Bot2", true, TypeStrategie.TOUJOURS_TRAHIR, false)).thenReturn(joueur2);
         partieService.demarrerPartie(initPartieDTO);
 
         OutPartieDTO outPartieAttenduDto = OutPartieDtoMapper.map(new Partie(5, joueur1, joueur2));
         outPartieAttenduDto.setScoreJoueur1(1);
         outPartieAttenduDto.setScoreJoueur2(1);
         outPartieAttenduDto.setNbTourLeft(4);
-        Tour tour= new Tour(Decision.TRAHIR, Decision.TRAHIR);
+        Tour tour = new Tour(Decision.TRAHIR, Decision.TRAHIR);
         tour.setEstFini(true);
-        outPartieAttenduDto.setHistorique(new Tour[] {tour});
+        outPartieAttenduDto.setHistorique(new Tour[] { tour });
 
         // Pas de décisions fournies
         DecisionDTO decisionDTO = new DecisionDTO(null, null);
@@ -210,4 +211,78 @@ class PartieServiceTest {
         assertEquals(outPartieAttenduDto, outPartieDTO);
 
     }
+
+    @Test
+    void testAbandonner_Player1BecomesBot() {
+        // given
+        InitPartieDTO initPartieDTO = new InitPartieDTO();
+        initPartieDTO.setNomJoueur1("Human1");
+        initPartieDTO.setJoueur1bot(false);
+        initPartieDTO.setNomJoueur2("Human2");
+        initPartieDTO.setJoueur2bot(false);
+        initPartieDTO.setNbMaxTours(3);
+
+        Joueur joueur1 = new JoueurHumain("Human1", 1);
+        Joueur joueur2 = new JoueurHumain("Human2", 2);
+
+        when(joueurService.creerUser("Human1", false, null, false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Human2", false, null, false)).thenReturn(joueur2);
+
+        partieService.demarrerPartie(initPartieDTO);
+
+        // when
+        AbandonnerDTO abandonnerDTO = new AbandonnerDTO(1, TypeStrategie.TOUJOURS_COOPERER, false);
+        JoueurBot mockedBot = new JoueurBot("Human1", StrategieFactory.creeStrategie(TypeStrategie.TOUJOURS_COOPERER),
+                1);
+        when(joueurService.transformerUser((JoueurHumain) joueur1, TypeStrategie.TOUJOURS_COOPERER, false))
+                .thenReturn(mockedBot);
+
+        OutPartieDTO outPartieDTO = partieService.abandonner(abandonnerDTO);
+
+        // then
+        verify(joueurService, times(1))
+                .transformerUser((JoueurHumain) joueur1, TypeStrategie.TOUJOURS_COOPERER, false);
+
+        assertTrue(outPartieDTO.isJoueur1bot());
+        assertFalse(outPartieDTO.isJoueur2bot());
+
+        assertEquals("Human1", outPartieDTO.getNomJoueur1());
+        assertEquals(mockedBot.getScore(), outPartieDTO.getScoreJoueur1());
+    }
+
+    @Test
+    void testAbandonner_Player2BecomesBot() {
+        // given
+        InitPartieDTO initPartieDTO = new InitPartieDTO();
+        initPartieDTO.setNomJoueur1("Human1");
+        initPartieDTO.setJoueur1bot(false);
+        initPartieDTO.setNomJoueur2("Human2");
+        initPartieDTO.setJoueur2bot(false);
+        initPartieDTO.setNbMaxTours(5);
+
+        Joueur joueur1 = new JoueurHumain("Human1", 1);
+        Joueur joueur2 = new JoueurHumain("Human2", 2);
+
+        when(joueurService.creerUser("Human1", false, null, false)).thenReturn(joueur1);
+        when(joueurService.creerUser("Human2", false, null, false)).thenReturn(joueur2);
+
+        partieService.demarrerPartie(initPartieDTO);
+
+        // when
+        AbandonnerDTO abandonnerDTO = new AbandonnerDTO(2, TypeStrategie.PAVLOV, true);
+        JoueurBot mockedBot = new JoueurBot("Human2", StrategieFactory.creeStrategie(TypeStrategie.PAVLOV), 2);
+        when(joueurService.transformerUser((JoueurHumain) joueur2, TypeStrategie.PAVLOV, true)).thenReturn(mockedBot);
+
+        OutPartieDTO outPartieDTO = partieService.abandonner(abandonnerDTO);
+
+        // then
+        verify(joueurService, times(1))
+                .transformerUser((JoueurHumain) joueur2, TypeStrategie.PAVLOV, true);
+
+        assertTrue(outPartieDTO.isJoueur2bot());
+        assertFalse(outPartieDTO.isJoueur1bot());
+        assertEquals("Human2", outPartieDTO.getNomJoueur2());
+        assertEquals(mockedBot.getScore(), outPartieDTO.getScoreJoueur2());
+    }
+
 }

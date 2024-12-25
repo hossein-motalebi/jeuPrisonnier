@@ -5,7 +5,7 @@ import { InitPartieDTO } from '../models/init-partie-dto';
 import { OutPartieDTO } from '../models/out-partie-dto';
 import { DecisionDTO } from '../models/decision-dto';
 import { AbandonDTO } from '../models/abandon-dto';
-import { Observable , tap , BehaviorSubject} from 'rxjs';
+import { Observable , tap , BehaviorSubject , ReplaySubject} from 'rxjs';
 import { TypeStrategie } from '../models/type-strategie';
 
 @Injectable({
@@ -13,25 +13,16 @@ import { TypeStrategie } from '../models/type-strategie';
 })
 export class PartieService {
   currentPartie?: OutPartieDTO;
-  strategieJoueur1?: TypeStrategie;
-  strategieJoueur2?: TypeStrategie;
+  //strategieJoueur1?: TypeStrategie;
+  //strategieJoueur2?: TypeStrategie;
 
   private readonly baseUrl = environment.apiUrl ;
 
   private partieInitialiseeSource = new BehaviorSubject<boolean>(false);
   partieInitialisee$ = this.partieInitialiseeSource.asObservable();
 
-  // Méthode pour initialiser une partie
-  initialiserPartie() {
-    // Logique d'initialisation
-    this.partieInitialiseeSource.next(true);
-  }
-
-  // Méthode pour réinitialiser une partie
-  reinitialiserPartie() {
-    // Logique de réinitialisation
-    this.partieInitialiseeSource.next(false);
-  }
+  strategiesSubject = new ReplaySubject<{strategieJoueur1 ?: TypeStrategie,
+                                    strategieJoueur2 ?:TypeStrategie}>();
 
 
   constructor(private readonly http: HttpClient) {}
@@ -49,8 +40,8 @@ export class PartieService {
     ).pipe(
       tap((res) =>{
         this.currentPartie = res;
-        this.strategieJoueur1 = initDto.strategieJoueur1;
-        this.strategieJoueur2 = initDto.strategieJoueur2
+        this.strategiesSubject.next({strategieJoueur1 : initDto.strategieJoueur1,
+                                    strategieJoueur2 : initDto.strategieJoueur2});
       })
     );
   }
@@ -82,11 +73,13 @@ export class PartieService {
       abandonDto
     ).pipe(
       tap((res) => {
-        this.currentPartie = res;
+          this.currentPartie = res;
+          console.log(abandonDto);
         if (abandonDto.idPlayer === 1)
-          this.strategieJoueur1 = abandonDto.strategie;
-        else 
-          this.strategieJoueur2 = abandonDto.strategie;
+            this.strategiesSubject.next({strategieJoueur1 : abandonDto.strategie});
+        else
+            this.strategiesSubject.next({strategieJoueur2 : abandonDto.strategie});
+
       })
     );
   }

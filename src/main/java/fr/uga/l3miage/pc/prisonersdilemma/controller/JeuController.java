@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/jeu")
 public class JeuController { //NOSONAR
 
+
     private final PartieService partieService;
 
     public  JeuController(PartieService partieService){
@@ -27,6 +28,10 @@ public class JeuController { //NOSONAR
         return partieService.jouerTour(decisionDTO);
     }
 
+    @PostMapping("/abandonner-humain")
+    public OutPartieDTO abandonnerPartie(@RequestBody AbandonnerDTO abandonnerDTO){
+        return partieService.abandonner(abandonnerDTO);
+    }
 
     @GetMapping("/error")
     public String handleError() {
@@ -34,6 +39,7 @@ public class JeuController { //NOSONAR
     }
 
     //no addresse found api pour tous les autres apelles entrants
+
 
 
 }

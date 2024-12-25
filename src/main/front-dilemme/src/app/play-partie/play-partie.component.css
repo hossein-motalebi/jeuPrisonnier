@@ -157,3 +157,8 @@
   font-size: 1.2em;
   color: #28a745;
 }
+
+.btn-action:disabled {
+  background-color: #a0c5f5;
+  cursor: not-allowed;
+}

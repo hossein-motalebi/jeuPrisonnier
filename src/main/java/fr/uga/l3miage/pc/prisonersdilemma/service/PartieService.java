@@ -1,5 +1,6 @@
 package fr.uga.l3miage.pc.prisonersdilemma.service;
 
+import fr.uga.l3miage.pc.prisonersdilemma.dto.AbandonnerDTO;
 import fr.uga.l3miage.pc.prisonersdilemma.dto.InitPartieDTO;
 import fr.uga.l3miage.pc.prisonersdilemma.dto.OutPartieDTO;
 import fr.uga.l3miage.pc.prisonersdilemma.mappers.OutPartieDtoMapper;
@@ -67,19 +68,21 @@ public class PartieService { //NOSONAR
         return OutPartieDtoMapper.map(partie);
     }
 
+    public OutPartieDTO abandonner(AbandonnerDTO abandonnerDTO) {
+        Joueur joueur= (abandonnerDTO.idPlayer()==1) ? partie.getJoueur1() : partie.getJoueur2();
+        JoueurBot newJoueur = joueurService.transformerUser(
+                        (JoueurHumain)joueur ,
+                        abandonnerDTO.strategie(),
+                        abandonnerDTO.strategieExterne());
+        if (abandonnerDTO.idPlayer() == 1) {
+            partie.setJoueur1(newJoueur);
+        } else {
+            partie.setJoueur2(newJoueur);
+        }
 
+        return OutPartieDtoMapper.map(partie);
 
+    }
 
-
-
-
-
-    /* TODO //NOSONAR
-    //Gérer le déroulement d'une partie du jeu.
-    //Coordonner les interactions entre les joueurs.
-    //Maintenir l'état de la partie en cours.
-    //Appliquer les règles du jeu pour chaque tour.
-    //Calculer les scores des joueurs.
-     */
 
 }

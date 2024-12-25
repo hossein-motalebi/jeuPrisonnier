@@ -7,16 +7,9 @@ import fr.uga.l3miage.pc.prisonersdilemma.enums.*;
 
 @Setter
 @Service
-public class JoueurService { //NOSONAR
+public class JoueurService {
 
-        /*TODO //NOSONAR
-    Gérer les opérations liées aux joueurs.
-Créer de nouveaux joueurs (humains ou bots).
-Gérer l'abandon d'un joueur humain et sa substitution par un bot.
-Maintenir les informations sur les joueurs (par exemple, le score, l'historique des décisions).
-     */
 
-    //compteurJoueur pour donner un ID à user comme quoi c'est le user 1 ou 2
     protected int compteurJoueur = 1;
 
     public Joueur creerUser(String nom,Boolean isBot, TypeStrategie strategieNom,boolean isStrategieExterne){
