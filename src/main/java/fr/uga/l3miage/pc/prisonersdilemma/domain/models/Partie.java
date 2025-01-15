@@ -1,6 +1,7 @@
 package fr.uga.l3miage.pc.prisonersdilemma.domain.models;
 
 import fr.uga.l3miage.pc.prisonersdilemma.domain.enums.Decision;
+import fr.uga.l3miage.pc.prisonersdilemma.domain.enums.EtatPartie;
 import lombok.Getter;
 import lombok.ToString; //debug
 
@@ -34,16 +35,17 @@ public class Partie {
    private Joueur joueur2;
    private final Tour[] tours;
    private int currentTourIndex;
+   private EtatPartie etatPartie;
 
 
     public Partie(int nbMaxTours,Joueur joueur1 , Joueur joueur2){
 
        setNbMaxTours(nbMaxTours);
        setJoueur1(joueur1);
-
        setJoueur2(joueur2);
        tours=new Tour[nbMaxTours];
        currentTourIndex = 0;
+       this.etatPartie = EtatPartie.INIT;
 
     }
 
@@ -149,6 +151,10 @@ public class Partie {
         if (joueur2 == null)
             throw new IllegalArgumentException("joueur2 ne peut pas être null");
         this.joueur2=joueur2;
+    }
+
+    public void setEtatPartie(EtatPartie etatPartie){
+        this.etatPartie = etatPartie;
     }
 }
 
