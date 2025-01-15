@@ -1,154 +1,55 @@
-<!-- src/app/play-partie/play-partie.component.html -->
-<h2>Partie en cours</h2>
-
 <div *ngIf="partieStatus; else pasDePartie" class="game-container">
-  <div class="player-info">
-    <div class="player">
-      <strong>Joueur1 :</strong> {{ partieStatus.nomJoueur1 }}
-      <span>Score : {{ partieStatus.scoreJoueur1 }}</span>
-      <div class="actions">
-        <!-- Abandonner Joueur1 -->
-        <button *ngIf="!partieStatus.joueur1bot" (click)="onAbandonnerJoueur(1)" class="btn-abandon">
-          Abandonner
-        </button>
-        <!-- Stratégie Bot Joueur1 -->
-        <span *ngIf="partieStatus.joueur1bot">
-          Stratégie Bot: {{ strategieJoueur1 }}
-        </span>
-        <!-- Options d'abandon pour Joueur1 -->
-        <div *ngIf="showAbandonOptionsJ1" class="abandon-options">
-          <h4>Choisir la stratégie</h4>
-          <select [(ngModel)]="selectedStrategieJ1" class="form-control">
-            <option *ngFor="let strategie of strategies" [value]="strategie">
-              {{ strategie }}
-            </option>
-          </select>
-          <div class="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                [(ngModel)]="strategieExterneJ1"
-                name="strategieExterneJ1"
-              />
-              Stratégie Externe
-            </label>
-          </div>
-          <button (click)="approuverAbandon(1)" class="btn-approve">Approuver</button>
-          <button (click)="annulerAbandon(1)" class="btn-cancel">Annuler</button>
-        </div>
-      </div>
-    </div>
+  <h2 class="game-title">Partie en cours</h2>
 
-    <div class="player">
-      <strong>Joueur2 :</strong> {{ partieStatus.nomJoueur2 }}
-      <span>Score : {{ partieStatus.scoreJoueur2 }}</span>
-      <div class="actions">
-        <!-- Abandonner Joueur2 -->
-        <button *ngIf="!partieStatus.joueur2bot" (click)="onAbandonnerJoueur(2)" class="btn-abandon">
-          Abandonner
-        </button>
-        <!-- Stratégie Bot Joueur2 -->
-        <span *ngIf="partieStatus.joueur2bot">
-          Stratégie Bot: {{ strategieJoueur2 }}
-        </span>
-        <!-- Options d'abandon pour Joueur2 -->
-        <div *ngIf="showAbandonOptionsJ2" class="abandon-options">
-          <h4>Choisir la stratégie</h4>
-          <select [(ngModel)]="selectedStrategieJ2" class="form-control">
-            <option *ngFor="let strategie of strategies" [value]="strategie">
-              {{ strategie }}
-            </option>
-          </select>
-          <div class="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                [(ngModel)]="strategieExterneJ2"
-                name="strategieExterneJ2"
-              />
-              Stratégie Externe
-            </label>
-          </div>
-          <button (click)="approuverAbandon(2)" class="btn-approve">Approuver</button>
-          <button (click)="annulerAbandon(2)" class="btn-cancel">Annuler</button>
-        </div>
-      </div>
-    </div>
+  <!-- Informations générales -->
+  <div class="game-info">
+    <p><strong>Votre adversaire :</strong> {{ partieStatus.nomJoueur2 }}</p>
+    <p><strong>Score :</strong> Vous : {{ partieStatus.scoreJoueur1 }}, Adversaire : {{ partieStatus.scoreJoueur2 }}</p>
   </div>
 
-  <!-- Historique des tours -->
-  <h3>Historique</h3>
+  <!-- Historique -->
+  <h3>Historique des Tours</h3>
   <table class="history-table">
+    <thead>
     <tr>
-      <th>#</th>
-      <th>Décision J1</th>
-      <th>Décision J2</th>
-      <th>Gagne J1</th>
-      <th>Gagne J2</th>
+      <th>Tour</th>
+      <th>Votre décision</th>
+      <th>Décision adversaire</th>
     </tr>
+    </thead>
+    <tbody>
     <tr *ngFor="let t of partieStatus.historique; index as i">
       <td>{{ i + 1 }}</td>
       <td>{{ t.decisionJoueur1 }}</td>
       <td>{{ t.decisionJoueur2 }}</td>
-      <td>{{ t.gainJoueur1 }}</td>
-      <td>{{ t.gainJoueur2 }}</td>
     </tr>
+    </tbody>
   </table>
 
-  <!-- Choix de la décision si la partie n’est pas terminée -->
+  <!-- Zone de décision -->
   <div *ngIf="partieStatus.nbTourLeft > 0" class="decision-section">
-    <h3>Votre décision</h3>
-
-    <!-- Décision Joueur 1 -->
-    <div *ngIf="!partieStatus.joueur1bot" class="decision-group">
-      <p>Décision Joueur1 :</p>
+    <h3>Votre Décision</h3>
+    <div class="decision-options">
       <label>
-        <input
-          type="radio"
-          [(ngModel)]="decisionJoueur1"
-          name="decisionJ1"
-          value="COOPERER"
-        />
+        <input type="radio" [(ngModel)]="decision" value="COOPERER" />
         Coopérer
       </label>
       <label>
-        <input
-          type="radio"
-          [(ngModel)]="decisionJoueur1"
-          name="decisionJ1"
-          value="TRAHIR"
-        />
+        <input type="radio" [(ngModel)]="decision" value="TRAHIR" />
         Trahir
       </label>
     </div>
-
-    <!-- Décision Joueur 2 -->
-    <div *ngIf="!partieStatus.joueur2bot" class="decision-group">
-      <p>Décision Joueur2 :</p>
-      <label>
-        <input
-          type="radio"
-          [(ngModel)]="decisionJoueur2"
-          name="decisionJ2"
-          value="COOPERER"
-        />
-        Coopérer
-      </label>
-      <label>
-        <input
-          type="radio"
-          [(ngModel)]="decisionJoueur2"
-          name="decisionJ2"
-          value="TRAHIR"
-        />
-        Trahir
-      </label>
-    </div>
-
-    <br />
-    <button (click)="onJouerCoup()" class="btn-action" [disabled]="!peutJouer">Jouer</button>  </div>
+    <button
+      (click)="onJouerCoup()"
+      class="btn-play"
+      [disabled]="!decision || waitingForOtherPlayer"
+    >
+      Jouer
+    </button>
+  </div>
 </div>
 
+<!-- Template si aucune partie n'est disponible -->
 <ng-template #pasDePartie>
-  <p>Aucune partie en cours (pas de OutPartieDTO disponible).</p>
+  <p class="no-game-message">Aucune partie en cours. Veuillez retourner à l'accueil.</p>
 </ng-template>

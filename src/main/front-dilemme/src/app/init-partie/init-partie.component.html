@@ -1,143 +1,54 @@
-<!-- src/main/front-dilemme/src/app/init-partie/init-partie.component.html -->
 <form (ngSubmit)="onSubmit()" #initForm="ngForm" class="init-form">
+  <h2 class="form-title">Initialisez une Partie</h2>
 
-  <div class="players-container">
-
-    <!-- Joueur 1 -->
-    <div class="player-section">
-      <h3>Joueur 1</h3>
-
-      <!-- Nom Joueur 1 -->
-      <div class="form-group">
-        <label for="nomJoueur1">Nom Joueur1 :</label>
-        <input
-          id="nomJoueur1"
-          name="nomJoueur1"
-          required
-          minlength="3"
-          maxlength="20"
-          [(ngModel)]="nomJoueur1"
-          #nomJ1Ref="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="nomJ1Ref.invalid && nomJ1Ref.touched" class="error">
-          <span *ngIf="nomJ1Ref.errors?.['required']">Le nom du Joueur1 est obligatoire !</span>
-          <span *ngIf="nomJ1Ref.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</span>
-          <span *ngIf="nomJ1Ref.errors?.['maxlength']">Le nom ne doit pas dépasser 20 caractères.</span>
-        </div>
-      </div>
-
-      <!-- Joueur1 est un bot ? -->
-      <div class="form-group checkbox-group">
-        <label>
-          <input
-            type="checkbox"
-            [(ngModel)]="joueur1bot"
-            name="joueur1bot"
-          />
-          Joueur1 est un Bot
-        </label>
-      </div>
-
-      <!-- Stratégie Joueur 1 (visible uniquement si Joueur1 est un bot) -->
-      <div class="form-group" *ngIf="joueur1bot">
-        <label for="strategieJoueur1">Stratégie Joueur1 :</label>
-        <select
-          id="strategieJoueur1"
-          name="strategieJoueur1"
-          required
-          [(ngModel)]="strategieJoueur1"
-          class="form-control"
-        >
-          <option *ngFor="let strategie of strategies" [value]="strategie">
-            {{ strategie }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Stratégie Externe Joueur1 (visible uniquement si Joueur1 est un bot) -->
-      <div class="form-group checkbox-group" *ngIf="joueur1bot">
-        <label>
-          <input
-            type="checkbox"
-            [(ngModel)]="strategieExterneJoueur1"
-            name="strategieExterneJoueur1"
-          />
-          Stratégie Externe
-        </label>
-      </div>
+  <!-- Nom du joueur -->
+  <div class="form-group">
+    <label for="nomJoueur" class="form-label">Votre nom :</label>
+    <input
+      id="nomJoueur"
+      name="nomJoueur"
+      required
+      minlength="3"
+      maxlength="20"
+      [(ngModel)]="nomJoueur"
+      #nomRef="ngModel"
+      class="form-control"
+    />
+    <div *ngIf="nomRef.invalid && nomRef.touched" class="error">
+      <span *ngIf="nomRef.errors?.['required']">Le nom est obligatoire !</span>
+      <span *ngIf="nomRef.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</span>
+      <span *ngIf="nomRef.errors?.['maxlength']">Le nom ne doit pas dépasser 20 caractères.</span>
     </div>
-
-    <!-- Joueur 2 -->
-    <div class="player-section">
-      <h3>Joueur 2</h3>
-
-      <!-- Nom Joueur 2 -->
-      <div class="form-group">
-        <label for="nomJoueur2">Nom Joueur2 :</label>
-        <input
-          id="nomJoueur2"
-          name="nomJoueur2"
-          required
-          minlength="3"
-          maxlength="20"
-          [(ngModel)]="nomJoueur2"
-          #nomJ2Ref="ngModel"
-          class="form-control"
-        />
-        <div *ngIf="nomJ2Ref.invalid && nomJ2Ref.touched" class="error">
-          <span *ngIf="nomJ2Ref.errors?.['required']">Le nom du Joueur2 est obligatoire !</span>
-          <span *ngIf="nomJ2Ref.errors?.['minlength']">Le nom doit contenir au moins 3 caractères.</span>
-          <span *ngIf="nomJ2Ref.errors?.['maxlength']">Le nom ne doit pas dépasser 20 caractères.</span>
-        </div>
-      </div>
-
-      <!-- Joueur2 est un bot ? -->
-      <div class="form-group checkbox-group">
-        <label>
-          <input
-            type="checkbox"
-            [(ngModel)]="joueur2bot"
-            name="joueur2bot"
-          />
-          Joueur2 est un Bot
-        </label>
-      </div>
-
-      <!-- Stratégie Joueur 2 (visible uniquement si Joueur2 est un bot) -->
-      <div class="form-group" *ngIf="joueur2bot">
-        <label for="strategieJoueur2">Stratégie Joueur2 :</label>
-        <select
-          id="strategieJoueur2"
-          name="strategieJoueur2"
-          required
-          [(ngModel)]="strategieJoueur2"
-          class="form-control"
-        >
-          <option *ngFor="let strategie of strategies" [value]="strategie">
-            {{ strategie }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Stratégie Externe Joueur2 (visible uniquement si Joueur2 est un bot) -->
-      <div class="form-group checkbox-group" *ngIf="joueur2bot">
-        <label>
-          <input
-            type="checkbox"
-            [(ngModel)]="strategieExterneJoueur2"
-            name="strategieExterneJoueur2"
-          />
-          Stratégie Externe
-        </label>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Nombre max de tours -->
+  <!-- Options -->
   <div class="form-group">
-    <label for="nbMaxTours">Nombre de tours :</label>
+    <label class="form-label">Choisissez :</label>
+    <div class="radio-group">
+      <label class="radio-option">
+        <input
+          type="radio"
+          [(ngModel)]="optionSelectionnee"
+          value="nouveau"
+          name="option"
+        />
+        Créer un nouveau jeu
+      </label>
+      <label class="radio-option">
+        <input
+          type="radio"
+          [(ngModel)]="optionSelectionnee"
+          value="joindre"
+          name="option"
+        />
+        Joindre un jeu existant
+      </label>
+    </div>
+  </div>
+
+  <!-- Créer un nouveau jeu -->
+  <div *ngIf="optionSelectionnee === 'nouveau'" class="form-group">
+    <label for="nbMaxTours" class="form-label">Nombre de tours :</label>
     <input
       type="number"
       id="nbMaxTours"
@@ -148,8 +59,28 @@
     />
   </div>
 
+  <!-- Joindre un jeu existant -->
+  <div *ngIf="optionSelectionnee === 'joindre'" class="form-group">
+    <label for="partiesEnCours" class="form-label">Sélectionnez une partie :</label>
+    <div class="partie-list-container">
+      <select
+        id="partiesEnCours"
+        name="partiesEnCours"
+        [(ngModel)]="partieSelectionnee"
+        class="form-control"
+      >
+        <option *ngFor="let partie of partiesEnCours" [value]="partie.idPartie">
+          Partie {{ partie.idPartie }} - Adversaire : {{ partie.adversaire }}
+        </option>
+      </select>
+      <button type="button" (click)="actualiserParties()" class="btn-refresh">
+        🔄 Actualiser
+      </button>
+    </div>
+  </div>
+
   <!-- Bouton Valider -->
-  <button type="submit" [disabled]="initForm.invalid" class="btn-submit">
-    Créer la Partie
+  <button type="submit" [disabled]="!optionSelectionnee || initForm.invalid" class="btn-submit">
+    Jouer
   </button>
 </form>

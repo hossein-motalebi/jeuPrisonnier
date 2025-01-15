@@ -1,28 +1,7 @@
-<!-- src/app/app.component.html -->
-
-<!-- En-tête ou titre principal -->
 <header class="header">
-  <h1>Prisoner's Dilemma</h1>
+  <h1>Prison Break</h1>
 </header>
 
-<!-- Menu de navigation minimal -->
-<nav>
-  <a
-    routerLink="/init"
-    routerLinkActive="active"
-    >Initialiser une Partie</a
-  >
-  <a
-    routerLink="/play"
-    routerLinkActive="active"
-    [ngClass]="{ disabled: !partieInitialisee }"
-    (click)="!partieInitialisee ? $event.preventDefault() : null"
-    >Jouer une Partie</a
-  >
-</nav>
-
-<!-- Conteneur principal -->
 <div class="main-container">
-  <!-- Zone d'affichage des composants en fonction de la route -->
   <router-outlet></router-outlet>
 </div>

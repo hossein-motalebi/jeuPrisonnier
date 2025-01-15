@@ -9,18 +9,24 @@ import { AppComponent } from './app.component';
 // On importe nos composants
 import { InitPartieComponent } from './init-partie/init-partie.component';
 import { PlayPartieComponent } from './play-partie/play-partie.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import { WaitingRoomComponent } from './waiting-room/waiting-room.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InitPartieComponent,    // <--- on déclare ici
-    PlayPartieComponent     // <--- et ici
+    PlayPartieComponent, WaitingRoomComponent     // <--- et ici
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
-import { TypeStrategie } from './type-strategie'
+import { TypeStrategie } from './type-strategie';
 
-export  interface AbandonDTO{
-    idPlayer : number,
-    strategie : TypeStrategie,
-    strategieExterne : boolean
+export interface AbandonnerDTO {
+  idPlayer: number;
+  strategie: TypeStrategie;
+  strategieExterne: boolean;
 }
