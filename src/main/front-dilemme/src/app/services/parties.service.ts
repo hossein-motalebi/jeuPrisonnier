@@ -9,7 +9,7 @@ import { DecisionDTO } from '../models/decision-dto';
   providedIn: 'root',
 })
 export class PartieService {
-  private readonly baseUrl = 'http://localhost:8080/api/jeu'; // URL de votre backend
+  private readonly baseUrl = 'http://localhost:8080/jeu'; // URL de votre backend
   currentPartie$ = new BehaviorSubject<OutPartieDTO | null>(null);
   idPartie?: number;
   idJoueur?: number;
