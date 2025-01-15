@@ -12,7 +12,7 @@ import lombok.ToString;
 
 public abstract class Joueur {
 
-    private final String nom;
+    private String nom;
     private int score;
     protected final int id;
 

@@ -11,28 +11,10 @@ import fr.uga.l3miage.pc.prisonersdilemma.domain.enums.TypeStrategie;
 class JoueurServiceImplTest {
 
     @Test
-    void creerUserBotTest() {
-        JoueurServiceImpl joueurServiceImpl = new JoueurServiceImpl();
-
-        Joueur joueur1 = joueurServiceImpl.creerUser("Player1", true, TypeStrategie.PAVLOV, false);
-        assertEquals("Player1", joueur1.getNom());
-        assertInstanceOf(JoueurBot.class, joueur1);
-    }
-
-    @Test
     void creerUserHumainTest() {
         JoueurServiceImpl joueurServiceImpl = new JoueurServiceImpl();
 
-        Joueur joueur1 = joueurServiceImpl.creerUser("Player1", false, null, false);
-        assertEquals("Player1", joueur1.getNom());
-        assertInstanceOf(JoueurHumain.class, joueur1);
-    }
-
-    @Test
-    void creerUserHumainAvecStraTest() {
-        JoueurServiceImpl joueurServiceImpl = new JoueurServiceImpl();
-
-        Joueur joueur1 = joueurServiceImpl.creerUser("Player1", false, TypeStrategie.PAVLOV, false);
+        Joueur joueur1 = joueurServiceImpl.creerUser("Player1", 1);
         assertEquals("Player1", joueur1.getNom());
         assertInstanceOf(JoueurHumain.class, joueur1);
     }
