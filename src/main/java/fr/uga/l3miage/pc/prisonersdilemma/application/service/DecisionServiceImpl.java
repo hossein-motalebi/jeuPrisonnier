@@ -8,7 +8,6 @@ import fr.uga.l3miage.pc.prisonersdilemma.infrastructure.in.web.dto.DecisionDTO;
 import fr.uga.l3miage.pc.prisonersdilemma.infrastructure.in.web.dto.DecisionInDTO;
 import fr.uga.l3miage.pc.prisonersdilemma.infrastructure.in.web.dto.OutPartieDTO;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -16,29 +15,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class DecisionServiceImpl implements DecisionUseCases {
 
-    Map<Integer, DecisionDTO> historiqueDecision; // contient le dernier decision de chaque partie
     PartieServiceImpl partieServiceImpl;
     SseService sseService;
 
     public DecisionServiceImpl(PartieServiceImpl partieServiceImpl, SseService sseService) {
-        historiqueDecision = new HashMap<>();
         this.partieServiceImpl = partieServiceImpl;
         this.sseService = sseService;
 
     }
 
-    public void verifieDecisionEnAbandonne(int idPartie, int idJoueurAbandonne) {
-        if (historiqueDecision.containsKey(idPartie)) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            traiterDecisionDejaPresente(idPartie, idJoueurAbandonne, null);
-        }
-    }
-
     private void traiterDecisionDejaPresente(int idPartie, int idJoueur, Decision decision) {
+        Map<Integer, DecisionDTO> historiqueDecision = partieServiceImpl.getHistoriqueDecision();
         DecisionDTO decisionDTO = historiqueDecision.get(idPartie);
         if (idJoueur == 1) {
             verifierDecisionNonPrise(decisionDTO.decisionJoueur1(), "La decision du joueur 1 est d�j� prise");
@@ -59,6 +46,7 @@ public class DecisionServiceImpl implements DecisionUseCases {
     }
 
     private void traiterNouvelleDecision(int idPartie, int idJoueur, Decision decision) {
+        Map<Integer, DecisionDTO> historiqueDecision = partieServiceImpl.getHistoriqueDecision();
         Partie partie = partieServiceImpl.getParties().get(idPartie);
         if (idJoueur == 1) {
             if (partie.getJoueur2() instanceof JoueurBot) {
@@ -76,6 +64,7 @@ public class DecisionServiceImpl implements DecisionUseCases {
     }
 
     public void ajouterDecision(int idPartie, DecisionInDTO decisionInDTO) {
+        Map<Integer, DecisionDTO> historiqueDecision = partieServiceImpl.getHistoriqueDecision();
         int idJoueur = decisionInDTO.idJoueur();
         Decision decision = decisionInDTO.decision();
 

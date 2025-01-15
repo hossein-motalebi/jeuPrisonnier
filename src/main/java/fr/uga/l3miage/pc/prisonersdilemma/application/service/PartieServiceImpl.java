@@ -22,16 +22,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class PartieServiceImpl implements PartieUseCases { // NOSONAR
 
+    private Map<Integer, DecisionDTO> historiqueDecision; // contient le dernier decision de chaque partie
     private Map<Integer, Partie> parties;
     private AtomicInteger idCounter;
     private final JoueurUseCases joueurServiceImpl;
-    private final DecisionUseCases decisionServiceImpl;
     private SseService sseService;
 
-    public PartieServiceImpl(JoueurServiceImpl joueurServiceImpl, SseService sseService,
-            DecisionServiceImpl decisionServiceImpl) {
+    public PartieServiceImpl(JoueurServiceImpl joueurServiceImpl, SseService sseService) {
 
-        this.decisionServiceImpl = decisionServiceImpl;
+        this.historiqueDecision = new HashMap<>();
         this.joueurServiceImpl = joueurServiceImpl;
         this.parties = new HashMap<>();
         this.idCounter = new AtomicInteger(10000);
@@ -107,8 +106,27 @@ public class PartieServiceImpl implements PartieUseCases { // NOSONAR
         }
 
         sseService.sendEvent(idPartie, OutPartieDtoMapper.map(partie));
-        decisionServiceImpl.verifieDecisionEnAbandonne(idPartie, abandonnerDTO.idPlayer());
+        verifieDecisionEnAbandonne(idPartie, abandonnerDTO.idPlayer());
 
+    }
+
+    public void verifieDecisionEnAbandonne(int idPartie, int idJoueurAbandonne) {
+        if (this.historiqueDecision.containsKey(idPartie)) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            DecisionDTO decisionDTO = historiqueDecision.get(idPartie);
+            if (idJoueurAbandonne == 1) {
+                decisionDTO = new DecisionDTO(null, decisionDTO.decisionJoueur2());
+            } else {
+                decisionDTO = new DecisionDTO(decisionDTO.decisionJoueur1(), null);
+            }
+            OutPartieDTO outPartieDTO = jouerTour(decisionDTO, idPartie);
+            sseService.sendEvent(idPartie, outPartieDTO);
+            historiqueDecision.remove(idPartie);
+        }
     }
 
     public List<PartieEnAttendDTO> getPartiesEnAttend() {

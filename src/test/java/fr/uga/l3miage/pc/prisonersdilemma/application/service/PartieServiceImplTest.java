@@ -5,6 +5,7 @@ import fr.uga.l3miage.pc.prisonersdilemma.domain.enums.*;
 import fr.uga.l3miage.pc.prisonersdilemma.domain.models.*;
 import fr.uga.l3miage.pc.prisonersdilemma.domain.factory.StrategieInterneFactory;
 import fr.uga.l3miage.pc.prisonersdilemma.infrastructure.in.web.mappers.OutPartieDtoMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,19 +27,17 @@ class PartieServiceImplTest {
 
     private JoueurServiceImpl joueurServiceImpl;
     private PartieServiceImpl partieServiceImpl;
-    private DecisionServiceImpl decisionServiceImpl;
     private SseService sseService;
 
     @BeforeEach
     public void setUp() {
         joueurServiceImpl = Mockito.mock(JoueurServiceImpl.class);
-        decisionServiceImpl = Mockito.mock(DecisionServiceImpl.class);
         Joueur joueur1 = new JoueurHumain("Player1", 1);
         Joueur joueur2 = new JoueurHumain("En attend", 2);
         when(joueurServiceImpl.creerUser("Player1", 1)).thenReturn(joueur1);
         when(joueurServiceImpl.creerUser("En attend", 2)).thenReturn(joueur2);
         sseService = Mockito.mock(SseService.class);
-        partieServiceImpl = new PartieServiceImpl(joueurServiceImpl, sseService, decisionServiceImpl);
+        partieServiceImpl = new PartieServiceImpl(joueurServiceImpl, sseService);
         InitPartieInDTO initPartieInDTO = new InitPartieInDTO();
         initPartieInDTO.setNomJoueur("Player1");
         initPartieInDTO.setNbMaxTours(5);
@@ -183,8 +182,8 @@ class PartieServiceImplTest {
         verify(joueurServiceImpl, times(1))
                 .transformerUser((JoueurHumain) joueur1, TypeStrategie.TOUJOURS_COOPERER, false);
 
-        assertTrue(outPartieDTO.isJoueur1bot());
-        assertFalse(outPartieDTO.isJoueur2bot());
+        Assertions.assertTrue(outPartieDTO.isJoueur1bot());
+        Assertions.assertFalse(outPartieDTO.isJoueur2bot());
 
         assertEquals("Human1", outPartieDTO.getNomJoueur1());
         assertEquals(mockedBot.getScore(), outPartieDTO.getScoreJoueur1());

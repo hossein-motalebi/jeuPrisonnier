@@ -6,6 +6,4 @@ public interface DecisionUseCases {
 
     void ajouterDecision(int idPartie, DecisionInDTO decisionInDTO);
 
-    void verifieDecisionEnAbandonne(int idPartie, int idJoueurAbandonne);
-
 }
