@@ -23,10 +23,11 @@
 
   <!-- Options -->
   <div class="form-group">
-    <label class="form-label">Choisissez :</label>
+    <span class="form-label">Choisissez :</span>
     <div class="radio-group">
-      <label class="radio-option">
+      <label for="nouveau" class="radio-option">
         <input
+          id="nouveau"
           type="radio"
           [(ngModel)]="optionSelectionnee"
           value="nouveau"
@@ -34,8 +35,9 @@
         />
         Créer un nouveau jeu
       </label>
-      <label class="radio-option">
+      <label for="joindre" class="radio-option">
         <input
+          id="joindre"
           type="radio"
           [(ngModel)]="optionSelectionnee"
           value="joindre"
@@ -50,9 +52,9 @@
   <div *ngIf="optionSelectionnee === 'nouveau'" class="form-group">
     <label for="nbMaxTours" class="form-label">Nombre de tours :</label>
     <input
-      type="number"
       id="nbMaxTours"
       name="nbMaxTours"
+      type="number"
       min="1"
       [(ngModel)]="nbMaxTours"
       class="form-control"
@@ -62,21 +64,19 @@
   <!-- Joindre un jeu existant -->
   <div *ngIf="optionSelectionnee === 'joindre'" class="form-group">
     <label for="partiesEnCours" class="form-label">Sélectionnez une partie :</label>
-    <div class="partie-list-container">
-      <select
-        id="partiesEnCours"
-        name="partiesEnCours"
-        [(ngModel)]="partieSelectionnee"
-        class="form-control"
-      >
-        <option *ngFor="let partie of partiesEnCours" [value]="partie.idPartie">
-          Partie : {{ partie.idPartie }} | Adversaire : {{ partie.nomJoueur }}
-        </option>
-      </select>
-      <button type="button" (click)="actualiserParties()" class="btn-refresh">
-        🔄 Actualiser
-      </button>
-    </div>
+    <select
+      id="partiesEnCours"
+      name="partiesEnCours"
+      [(ngModel)]="partieSelectionnee"
+      class="form-control"
+    >
+      <option *ngFor="let partie of partiesEnCours" [value]="partie.idPartie">
+        Partie : {{ partie.idPartie }} | Adversaire : {{ partie.nomJoueur }}
+      </option>
+    </select>
+    <button type="button" (click)="actualiserParties()" class="btn-refresh">
+      🔄 Actualiser
+    </button>
   </div>
 
   <!-- Bouton Valider -->
