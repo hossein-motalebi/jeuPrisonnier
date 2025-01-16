@@ -30,7 +30,7 @@ export class PartieService {
   }
 
   obtenirPartiesEnCours() {
-    return this.http.get<{ idPartie: number; adversaire: string }[]>(`${this.baseUrl}/info-parties`);
+    return this.http.get<{ idPartie: number; nomJoueur: string }[]>(`${this.baseUrl}/info-parties`);
   }
 
   rejoindrePartie(idPartie: number, nomJoueur: string): void {
