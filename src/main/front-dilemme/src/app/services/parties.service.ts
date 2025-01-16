@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {BehaviorSubject, Subject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { InitPartieDTO } from '../models/init-partie-dto';
 import { OutPartieDTO } from '../models/out-partie-dto';
 import { DecisionDTO } from '../models/decision-dto';
@@ -15,7 +15,6 @@ export class PartieService {
   idPartie?: number;
   idJoueur?: number;
   private eventSource?: EventSource;
-  private destroy$ = new Subject<void>();
 
   constructor(private readonly http: HttpClient) {}
 
@@ -31,18 +30,21 @@ export class PartieService {
   }
 
   obtenirPartiesEnCours() {
-    return this.http.get<{ idPartie: number; nomJoueur: string }[]>(`${this.baseUrl}/info-parties`);
+    return this.http.get<{ idPartie: number; adversaire: string }[]>(`${this.baseUrl}/info-parties`);
   }
 
   rejoindrePartie(idPartie: number, nomJoueur: string): void {
-    this.http.post<void>(`${this.baseUrl}/${idPartie}/join-partie/`, { nomJoueur }).subscribe({
-      next: () => {
-        this.idPartie = idPartie;
-        this.idJoueur = 2; // Joueur 2 rejoint la partie
-        this.connectSSE(); // Connexion SSE après jonction
-      },
-      error: (err) => console.error('Erreur lors de la jonction de la partie :', err),
-    });
+    this.idPartie = idPartie;
+    this.idJoueur = 2; // Joueur 2 rejoint la partie
+    this.connectSSE(); // Connexion SSE après jonction
+
+    setTimeout(() => {
+      this.http.post<void>(`${this.baseUrl}/${idPartie}/join-partie/`, { nomJoueur }).subscribe({
+        next: () => {},
+        error: (err) => console.error('Erreur lors de la jonction de la partie :', err),
+      });
+    }, 1000);
+
   }
 
   jouerTour(decisionDto: DecisionDTO): void {
@@ -94,11 +96,5 @@ export class PartieService {
       this.eventSource?.close();
       // Optionnel: Implémenter une logique de reconnexion
     };
-  }
-
-  ngOnDestroy(): void {
-    this.eventSource?.close();
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }
