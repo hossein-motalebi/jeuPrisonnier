@@ -70,7 +70,7 @@
         class="form-control"
       >
         <option *ngFor="let partie of partiesEnCours" [value]="partie.idPartie">
-          Partie {{ partie.idPartie }} - Adversaire : {{ partie.adversaire }}
+          Partie : {{ partie.idPartie }} | Adversaire : {{ partie.nomJoueur }}
         </option>
       </select>
       <button type="button" (click)="actualiserParties()" class="btn-refresh">

@@ -13,7 +13,7 @@ public class SseService {
     private final Map<Integer, SseEmitter> emitters = new ConcurrentHashMap<>();
 
     public SseEmitter createEmitter(int idPartie) {
-        SseEmitter emitter = new SseEmitter();
+        SseEmitter emitter = new SseEmitter(0L);
         emitters.put(idPartie, emitter);
 
         emitter.onCompletion(() -> emitters.remove(idPartie));

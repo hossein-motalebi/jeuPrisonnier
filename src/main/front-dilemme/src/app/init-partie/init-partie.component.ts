@@ -11,7 +11,7 @@ export class InitPartieComponent implements OnInit {
   nomJoueur = '';
   optionSelectionnee: 'nouveau' | 'joindre' | null = null;
   nbMaxTours = 5;
-  partiesEnCours: { idPartie: number; adversaire: string }[] = [];
+  partiesEnCours: { idPartie: number; nomJoueur: string }[] = [];
   partieSelectionnee?: number;
 
   constructor(private partieService: PartieService, private router: Router) {}

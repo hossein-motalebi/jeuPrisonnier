@@ -11,8 +11,10 @@ import { DecisionDTO } from '../models/decision-dto';
 export class PartieService {
   private readonly baseUrl = 'http://localhost:8080/jeu'; // URL de votre backend
   currentPartie$ = new BehaviorSubject<OutPartieDTO | null>(null);
+  isGameReady$ = new BehaviorSubject<boolean>(false); // Indique si le jeu est prêt
   idPartie?: number;
   idJoueur?: number;
+  private eventSource?: EventSource;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -28,7 +30,7 @@ export class PartieService {
   }
 
   obtenirPartiesEnCours() {
-    return this.http.get<{ idPartie: number; adversaire: string }[]>(`${this.baseUrl}/info-parties`);
+    return this.http.get<{ idPartie: number; nomJoueur: string }[]>(`${this.baseUrl}/info-parties`);
   }
 
   rejoindrePartie(idPartie: number, nomJoueur: string): void {
@@ -64,19 +66,30 @@ export class PartieService {
       return;
     }
 
-    const eventSource = new EventSource(`${this.baseUrl}/${this.idPartie}/stream-partie/`);
-    eventSource.onmessage = (event) => {
+    if (this.eventSource) {
+      this.eventSource.close();
+    }
+
+    this.eventSource = new EventSource(`${this.baseUrl}/${this.idPartie}/stream-partie/`);
+    this.eventSource.onmessage = (event) => {
       const updatedPartie = JSON.parse(event.data) as OutPartieDTO;
+
+      // Met à jour la partie courante
       this.currentPartie$.next(updatedPartie);
 
-      if (updatedPartie.nomJoueur2 !== 'En attend') {
-        console.log('Partie prête à jouer.');
-      }
+      // Met à jour l'état du jeu
+      const isGameReady = updatedPartie.nomJoueur2 !== 'En attend';
+      this.isGameReady$.next(isGameReady);
     };
 
-    eventSource.onerror = () => {
+    this.eventSource.onerror = () => {
       console.error('Erreur lors de la connexion SSE.');
-      eventSource.close();
+      this.eventSource?.close();
     };
+  }
+
+  disconnectSSE(): void {
+    this.eventSource?.close();
+    this.eventSource = undefined;
   }
 }
