@@ -11,59 +11,42 @@ h1, h2, h3 {
   color: #444;
 }
 
-form {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 500px;
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
   margin: 20px auto;
 }
 
-.form-group {
+.block {
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.block-title {
   margin-bottom: 15px;
+  font-size: 1.2em;
+  text-align: center;
+  color: #007bff;
 }
 
-.form-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
+ul {
+  list-style: none;
+  padding: 0;
 }
 
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.radio-group {
-  display: flex;
-  justify-content: space-around;
-}
-
-.radio-option {
-  display: inline-block;
-}
-
-.btn-submit, .btn-refresh, .btn-play {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-submit:hover, .btn-refresh:hover, .btn-play:hover {
-  background-color: #0056b3;
+ul li {
+  margin: 5px 0;
 }
 
 .history-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .history-table th, .history-table td {
@@ -72,23 +55,40 @@ form {
   text-align: center;
 }
 
-.spinner-container {
+.decision-options {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: space-around;
+  margin: 10px 0;
 }
 
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #ccc;
-  border-top-color: #007bff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+.decision-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.btn-play {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.btn-play:hover {
+  background-color: #0056b3;
+}
+
+.btn-play:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.no-game-message {
+  text-align: center;
+  color: #666;
+  font-size: 1.1em;
 }

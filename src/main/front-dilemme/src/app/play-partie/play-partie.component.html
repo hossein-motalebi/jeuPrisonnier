@@ -1,34 +1,37 @@
 <div *ngIf="partieStatus; else pasDePartie" class="game-container">
-  <h2 class="game-title">Partie en cours</h2>
-
-  <!-- Informations générales -->
-  <div class="game-info">
-    <p><strong>Votre adversaire :</strong> {{ partieStatus.nomJoueur2 }}</p>
-    <p><strong>Score :</strong> Vous : {{ partieStatus.scoreJoueur1 }}, Adversaire : {{ partieStatus.scoreJoueur2 }}</p>
+  <!-- Bloc 1 : Informations générales -->
+  <div class="block">
+    <h2 class="block-title">Scores</h2>
+    <ul>
+      <li><strong>Vous :</strong> {{ partieStatus.scoreJoueur1 }}</li>
+      <li><strong>{{ partieStatus.nomJoueur2 }} :</strong> {{ partieStatus.scoreJoueur2 }}</li>
+    </ul>
   </div>
 
-  <!-- Historique -->
-  <h3>Historique des Tours</h3>
-  <table class="history-table">
-    <thead>
-    <tr>
-      <th>Tour</th>
-      <th>Votre décision</th>
-      <th>Décision adversaire</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let t of partieStatus.historique; index as i">
-      <td>{{ i + 1 }}</td>
-      <td>{{ t.decisionJoueur1 }}</td>
-      <td>{{ t.decisionJoueur2 }}</td>
-    </tr>
-    </tbody>
-  </table>
+  <!-- Bloc 2 : Historique -->
+  <div class="block">
+    <h2 class="block-title">Historique des Tours</h2>
+    <table class="history-table">
+      <thead>
+      <tr>
+        <th>Tour</th>
+        <th>Votre décision</th>
+        <th>Décision adversaire</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let t of partieStatus.historique; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ t.decisionJoueur1 }}</td>
+        <td>{{ t.decisionJoueur2 }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <!-- Zone de décision -->
-  <div *ngIf="partieStatus.nbTourLeft > 0" class="decision-section">
-    <h3>Votre Décision</h3>
+  <!-- Bloc 3 : Zone de décision -->
+  <div *ngIf="partieStatus.nbTourLeft > 0" class="block">
+    <h2 class="block-title">Votre Décision</h2>
     <div class="decision-options">
       <label>
         <input type="radio" [(ngModel)]="decision" value="COOPERER" />

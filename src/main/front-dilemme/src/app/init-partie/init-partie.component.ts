@@ -37,7 +37,7 @@ export class InitPartieComponent implements OnInit {
       this.router.navigate(['/waiting']);
     } else if (this.optionSelectionnee === 'joindre' && this.partieSelectionnee !== undefined) {
       this.partieService.rejoindrePartie(this.partieSelectionnee, this.nomJoueur);
-      this.router.navigate(['/waiting']);
+      this.router.navigate(['/play']);
     }
   }
 }

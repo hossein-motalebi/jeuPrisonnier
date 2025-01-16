@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import { InitPartieDTO } from '../models/init-partie-dto';
 import { OutPartieDTO } from '../models/out-partie-dto';
 import { DecisionDTO } from '../models/decision-dto';
@@ -15,6 +15,7 @@ export class PartieService {
   idPartie?: number;
   idJoueur?: number;
   private eventSource?: EventSource;
+  private destroy$ = new Subject<void>();
 
   constructor(private readonly http: HttpClient) {}
 
@@ -60,36 +61,44 @@ export class PartieService {
       });
   }
 
-  connectSSE(): void {
+  private connectSSE(): void {
     if (!this.idPartie) {
       console.error('ID de la partie non défini pour les SSE.');
       return;
     }
 
+    // Terminer toute connexion SSE précédente
     if (this.eventSource) {
       this.eventSource.close();
     }
 
     this.eventSource = new EventSource(`${this.baseUrl}/${this.idPartie}/stream-partie/`);
-    this.eventSource.onmessage = (event) => {
-      const updatedPartie = JSON.parse(event.data) as OutPartieDTO;
 
-      // Met à jour la partie courante
-      this.currentPartie$.next(updatedPartie);
+    // Écouter l'événement nommé "update"
+    this.eventSource.addEventListener('update', (event) => {
+      console.log('Événement SSE "update" reçu:', event.data);
+      try {
+        const updatedPartie: OutPartieDTO = JSON.parse(event.data);
+        this.currentPartie$.next(updatedPartie);
 
-      // Met à jour l'état du jeu
-      const isGameReady = updatedPartie.nomJoueur2 !== 'En attend';
-      this.isGameReady$.next(isGameReady);
-    };
+        if (updatedPartie.nomJoueur2 !== 'En attend') {
+          console.log('Partie prête à jouer.');
+        }
+      } catch (error) {
+        console.error('Erreur lors du parsing des données SSE:', error);
+      }
+    });
 
-    this.eventSource.onerror = () => {
-      console.error('Erreur lors de la connexion SSE.');
+    this.eventSource.onerror = (error) => {
+      console.error('Erreur lors de la connexion SSE :', error);
       this.eventSource?.close();
+      // Optionnel: Implémenter une logique de reconnexion
     };
   }
 
-  disconnectSSE(): void {
+  ngOnDestroy(): void {
     this.eventSource?.close();
-    this.eventSource = undefined;
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
