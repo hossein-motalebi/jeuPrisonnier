@@ -1,87 +1,95 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environments';
+import { BehaviorSubject } from 'rxjs';
 import { InitPartieDTO } from '../models/init-partie-dto';
 import { OutPartieDTO } from '../models/out-partie-dto';
 import { DecisionDTO } from '../models/decision-dto';
-import { AbandonDTO } from '../models/abandon-dto';
-import { Observable , tap , BehaviorSubject , ReplaySubject} from 'rxjs';
-import { TypeStrategie } from '../models/type-strategie';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PartieService {
-  currentPartie?: OutPartieDTO;
-  //strategieJoueur1?: TypeStrategie;
-  //strategieJoueur2?: TypeStrategie;
-
-  private readonly baseUrl = environment.apiUrl ;
-
-  private partieInitialiseeSource = new BehaviorSubject<boolean>(false);
-  partieInitialisee$ = this.partieInitialiseeSource.asObservable();
-
-  strategiesSubject = new ReplaySubject<{strategieJoueur1 ?: TypeStrategie,
-                                    strategieJoueur2 ?:TypeStrategie}>();
-
+  private readonly baseUrl = 'http://localhost:8080/jeu'; // URL de votre backend
+  currentPartie$ = new BehaviorSubject<OutPartieDTO | null>(null);
+  isGameReady$ = new BehaviorSubject<boolean>(false); // Indique si le jeu est prêt
+  idPartie?: number;
+  idJoueur?: number;
+  private eventSource?: EventSource;
 
   constructor(private readonly http: HttpClient) {}
 
-
-  /**
-   * Appel POST sur /jeu/demarrer
-   * - Reçoit un InitPartieDTO en paramètre
-   * - Retourne un OutPartieDTO
-   */
-  demarrerPartie(initDto: InitPartieDTO): Observable<OutPartieDTO> {
-    return this.http.post<OutPartieDTO>(
-      `${this.baseUrl}/jeu/demarrer`,
-      initDto
-    ).pipe(
-      tap((res) =>{
-        this.currentPartie = res;
-        this.strategiesSubject.next({strategieJoueur1 : initDto.strategieJoueur1,
-                                    strategieJoueur2 : initDto.strategieJoueur2});
-      })
-    );
+  demarrerPartie(dto: InitPartieDTO): void {
+    this.http.post<{ idPartie: number }>(`${this.baseUrl}/init-partie`, dto).subscribe({
+      next: (res) => {
+        this.idPartie = res.idPartie;
+        this.idJoueur = 1; // Joueur 1 crée la partie
+        this.connectSSE(); // Connexion SSE après création
+      },
+      error: (err) => console.error('Erreur lors de la création de la partie :', err),
+    });
   }
 
-  /**
-   * Appel POST sur /jeu/jouer-tour
-   * - Reçoit un DecisionDTO en paramètre
-   * - Retourne un OutPartieDTO
-   */
-  jouerTour(decisionDto: DecisionDTO): Observable<OutPartieDTO> {
-    return this.http.post<OutPartieDTO>(
-      `${this.baseUrl}/jeu/jouer-tour`,
-      decisionDto
-    ).pipe(
-      tap((res) =>{
-        this.currentPartie = res;
-      })
-    );
+  obtenirPartiesEnCours() {
+    return this.http.get<{ idPartie: number; nomJoueur: string }[]>(`${this.baseUrl}/info-parties`);
   }
 
-  /**
-   * Appel POST sur /jeu/abandonner-humain
-   * - Reçoit un AbandonDTO en paramètre
-   * - Retourne un OutPartieDTO
-   */
-  abandonner(abandonDto : AbandonDTO) : Observable<OutPartieDTO>{
-    return this.http.post<OutPartieDTO>(
-      `${this.baseUrl}/jeu/abandonner-humain`,
-      abandonDto
-    ).pipe(
-      tap((res) => {
-          this.currentPartie = res;
-          console.log(abandonDto);
-        if (abandonDto.idPlayer === 1)
-            this.strategiesSubject.next({strategieJoueur1 : abandonDto.strategie});
-        else
-            this.strategiesSubject.next({strategieJoueur2 : abandonDto.strategie});
-
-      })
-    );
+  rejoindrePartie(idPartie: number, nomJoueur: string): void {
+    this.http.post<void>(`${this.baseUrl}/${idPartie}/join-partie/`, { nomJoueur }).subscribe({
+      next: () => {
+        this.idPartie = idPartie;
+        this.idJoueur = 2; // Joueur 2 rejoint la partie
+        this.connectSSE(); // Connexion SSE après jonction
+      },
+      error: (err) => console.error('Erreur lors de la jonction de la partie :', err),
+    });
   }
 
+  jouerTour(decisionDto: DecisionDTO): void {
+    if (!this.idPartie || !this.idJoueur) {
+      console.error('ID de partie ou de joueur manquant.');
+      return;
+    }
+
+    this.http
+      .post<void>(`${this.baseUrl}/${this.idPartie}/jouer-tour/`, {
+        ...decisionDto,
+        idJoueur: this.idJoueur,
+      })
+      .subscribe({
+        error: (err) => console.error('Erreur lors du tour de jeu :', err),
+      });
+  }
+
+  connectSSE(): void {
+    if (!this.idPartie) {
+      console.error('ID de la partie non défini pour les SSE.');
+      return;
+    }
+
+    if (this.eventSource) {
+      this.eventSource.close();
+    }
+
+    this.eventSource = new EventSource(`${this.baseUrl}/${this.idPartie}/stream-partie/`);
+    this.eventSource.onmessage = (event) => {
+      const updatedPartie = JSON.parse(event.data) as OutPartieDTO;
+
+      // Met à jour la partie courante
+      this.currentPartie$.next(updatedPartie);
+
+      // Met à jour l'état du jeu
+      const isGameReady = updatedPartie.nomJoueur2 !== 'En attend';
+      this.isGameReady$.next(isGameReady);
+    };
+
+    this.eventSource.onerror = () => {
+      console.error('Erreur lors de la connexion SSE.');
+      this.eventSource?.close();
+    };
+  }
+
+  disconnectSSE(): void {
+    this.eventSource?.close();
+    this.eventSource = undefined;
+  }
 }

@@ -1,0 +1,6 @@
+export enum TypeStrategie {
+  RANDOM = 'RANDOM',
+  ALWAYS_COOPERATE = 'ALWAYS_COOPERATE',
+  ALWAYS_BETRAY = 'ALWAYS_BETRAY',
+  TIT_FOR_TAT = 'TIT_FOR_TAT',
+}
