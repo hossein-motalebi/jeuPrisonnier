@@ -46,17 +46,24 @@ form {
   display: inline-block;
 }
 
-.btn-submit, .btn-refresh, .btn-play {
+.btn-submit {
+  width: 100%;
+  padding: 10px;
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
-  padding: 10px 15px;
   border-radius: 4px;
+  font-size: 1em;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
-.btn-submit:hover, .btn-refresh:hover, .btn-play:hover {
+.btn-submit:disabled {
+  background-color: #a0c5f5;
+  cursor: not-allowed;
+}
+
+.btn-submit:hover:not(:disabled) {
   background-color: #0056b3;
 }
 
@@ -86,6 +93,12 @@ form {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+.error {
+  font-size: 0.875em;
+  color: red;
+  margin-top: 4px;
+}
+
 
 @keyframes spin {
   to {

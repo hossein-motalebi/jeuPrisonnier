@@ -12,9 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+
 @AllArgsConstructor
 @RestController
-
+@CrossOrigin(origins = {"http://localhost:4200" , "http://127.0.01:4200" , "http://129.88.219.103:4200"})
 @RequestMapping("/jeu")
 public class JeuController { // NOSONAR
 

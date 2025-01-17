@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { InitPartieDTO } from '../models/init-partie-dto';
 import { OutPartieDTO } from '../models/out-partie-dto';
 import { DecisionDTO } from '../models/decision-dto';
+import { AbandonDTO } from '../models/abandon-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -54,13 +55,21 @@ export class PartieService {
     }
 
     this.http
-      .post<void>(`${this.baseUrl}/${this.idPartie}/jouer-tour/`, {
-        ...decisionDto,
-        idJoueur: this.idJoueur,
-      })
+      .post<void>(`${this.baseUrl}/${this.idPartie}/jouer-tour/`,
+        decisionDto )
       .subscribe({
         error: (err) => console.error('Erreur lors du tour de jeu :', err),
       });
+  }
+
+  abandonner(abandonDto : AbandonDTO) : void{
+    this.http.post<void>(
+      `${this.baseUrl}/${this.idPartie}/abandonner-humain`,
+      abandonDto
+    ).subscribe({
+      error: (err) => console.error('Erreur lors de l\'abandon de la partie :', err),
+    }
+    );
   }
 
   private connectSSE(): void {
