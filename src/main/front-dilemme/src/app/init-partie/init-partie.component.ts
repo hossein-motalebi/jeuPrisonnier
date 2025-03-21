@@ -14,11 +14,12 @@ export class InitPartieComponent implements OnInit {
   partiesEnCours: { idPartie: number; nomJoueur: string }[] = [];
   partieSelectionnee?: number;
 
-  constructor(private partieService: PartieService, private router: Router) {}
+  constructor(private readonly partieService: PartieService, private readonly router: Router) {}
 
   ngOnInit(): void {
     this.actualiserParties();
   }
+
 
   actualiserParties(): void {
     this.partieService.obtenirPartiesEnCours().subscribe({

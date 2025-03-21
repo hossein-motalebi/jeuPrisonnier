@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { InitPartieDTO } from '../models/init-partie-dto';
 import { OutPartieDTO } from '../models/out-partie-dto';
 import { DecisionDTO } from '../models/decision-dto';
+import { AbandonDTO } from '../models/abandon-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -34,14 +35,17 @@ export class PartieService {
   }
 
   rejoindrePartie(idPartie: number, nomJoueur: string): void {
-    this.http.post<void>(`${this.baseUrl}/${idPartie}/join-partie/`, { nomJoueur }).subscribe({
-      next: () => {
-        this.idPartie = idPartie;
-        this.idJoueur = 2; // Joueur 2 rejoint la partie
-        this.connectSSE(); // Connexion SSE après jonction
-      },
-      error: (err) => console.error('Erreur lors de la jonction de la partie :', err),
-    });
+    this.idPartie = idPartie;
+    this.idJoueur = 2; // Joueur 2 rejoint la partie
+    this.connectSSE(); // Connexion SSE après jonction
+
+    setTimeout(() => {
+      this.http.post<void>(`${this.baseUrl}/${idPartie}/join-partie/`, { nomJoueur }).subscribe({
+        next: () => {},
+        error: (err) => console.error('Erreur lors de la jonction de la partie :', err),
+      });
+    }, 1000);
+
   }
 
   jouerTour(decisionDto: DecisionDTO): void {
@@ -51,45 +55,55 @@ export class PartieService {
     }
 
     this.http
-      .post<void>(`${this.baseUrl}/${this.idPartie}/jouer-tour/`, {
-        ...decisionDto,
-        idJoueur: this.idJoueur,
-      })
+      .post<void>(`${this.baseUrl}/${this.idPartie}/jouer-tour/`,
+        decisionDto )
       .subscribe({
         error: (err) => console.error('Erreur lors du tour de jeu :', err),
       });
   }
 
-  connectSSE(): void {
+  abandonner(abandonDto : AbandonDTO) : void{
+    this.http.post<void>(
+      `${this.baseUrl}/${this.idPartie}/abandonner-humain`,
+      abandonDto
+    ).subscribe({
+      error: (err) => console.error('Erreur lors de l\'abandon de la partie :', err),
+    }
+    );
+  }
+
+  private connectSSE(): void {
     if (!this.idPartie) {
       console.error('ID de la partie non défini pour les SSE.');
       return;
     }
 
+    // Terminer toute connexion SSE précédente
     if (this.eventSource) {
       this.eventSource.close();
     }
 
     this.eventSource = new EventSource(`${this.baseUrl}/${this.idPartie}/stream-partie/`);
-    this.eventSource.onmessage = (event) => {
-      const updatedPartie = JSON.parse(event.data) as OutPartieDTO;
 
-      // Met à jour la partie courante
-      this.currentPartie$.next(updatedPartie);
+    // Écouter l'événement nommé "update"
+    this.eventSource.addEventListener('update', (event) => {
+      console.log('Événement SSE "update" reçu:', event.data);
+      try {
+        const updatedPartie: OutPartieDTO = JSON.parse(event.data);
+        this.currentPartie$.next(updatedPartie);
 
-      // Met à jour l'état du jeu
-      const isGameReady = updatedPartie.nomJoueur2 !== 'En attend';
-      this.isGameReady$.next(isGameReady);
-    };
+        if (updatedPartie.nomJoueur2 !== 'En attend') {
+          console.log('Partie prête à jouer.');
+        }
+      } catch (error) {
+        console.error('Erreur lors du parsing des données SSE:', error);
+      }
+    });
 
-    this.eventSource.onerror = () => {
-      console.error('Erreur lors de la connexion SSE.');
+    this.eventSource.onerror = (error) => {
+      console.error('Erreur lors de la connexion SSE :', error);
       this.eventSource?.close();
+      // Optionnel: Implémenter une logique de reconnexion
     };
-  }
-
-  disconnectSSE(): void {
-    this.eventSource?.close();
-    this.eventSource = undefined;
   }
 }

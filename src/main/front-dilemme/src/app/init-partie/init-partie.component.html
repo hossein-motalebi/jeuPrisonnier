@@ -30,6 +30,7 @@
           id="nouveau"
           type="radio"
           [(ngModel)]="optionSelectionnee"
+          required
           value="nouveau"
           name="option"
         />
@@ -49,7 +50,7 @@
   </div>
 
   <!-- Créer un nouveau jeu -->
-  <div *ngIf="optionSelectionnee === 'nouveau'" class="form-group">
+  <div *ngIf="optionSelectionnee === 'nouveau'" class="form-group"  >
     <label for="nbMaxTours" class="form-label">Nombre de tours :</label>
     <input
       id="nbMaxTours"
@@ -62,11 +63,13 @@
   </div>
 
   <!-- Joindre un jeu existant -->
-  <div *ngIf="optionSelectionnee === 'joindre'" class="form-group">
+  <div *ngIf="optionSelectionnee === 'joindre'" class="form-group" 
+  >
     <label for="partiesEnCours" class="form-label">Sélectionnez une partie :</label>
     <select
       id="partiesEnCours"
       name="partiesEnCours"
+      required
       [(ngModel)]="partieSelectionnee"
       class="form-control"
     >
@@ -80,7 +83,7 @@
   </div>
 
   <!-- Bouton Valider -->
-  <button type="submit" [disabled]="!optionSelectionnee || initForm.invalid" class="btn-submit">
+  <button type="submit" [disabled]=" initForm.invalid " class="btn-submit">
     Jouer
   </button>
 </form>

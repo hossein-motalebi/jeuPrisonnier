@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, interval } from 'rxjs';
 import { PartieService } from '../services/parties.service';
 
 @Component({
@@ -8,38 +7,22 @@ import { PartieService } from '../services/parties.service';
   templateUrl: './waiting-room.component.html',
   styleUrls: ['./waiting-room.component.css'],
 })
-export class WaitingRoomComponent implements OnInit, OnDestroy {
+export class WaitingRoomComponent implements OnInit {
   message: string = "En attente d'un autre joueur...";
-  private partieSubscription?: Subscription;
-  private intervalSubscription?: Subscription;
 
   constructor(private partieService: PartieService, private router: Router) {}
 
   ngOnInit(): void {
-    // Écoute les mises à jour du service
-    this.partieSubscription = this.partieService.currentPartie$.subscribe((partie) => {
+    this.listenForPartieUpdates();
+  }
+
+  listenForPartieUpdates(): void {
+    this.partieService.currentPartie$.subscribe((partie) => {
+      console.log('partie 1 recu :', partie);
       if (partie && partie.nomJoueur2 !== 'En attend') {
-        this.router.navigate(['/play']); // Redirection lorsque la partie est prête
+        console.log('partie recu :', partie);
+        this.router.navigate(['/play']);
       }
     });
-
-    // Vérification continue toutes les 2 secondes
-    this.intervalSubscription = interval(2000).subscribe(() => {
-      this.checkGameStatus();
-    });
-  }
-
-  ngOnDestroy(): void {
-    // Désabonnements pour éviter les fuites mémoire
-    this.partieSubscription?.unsubscribe();
-    this.intervalSubscription?.unsubscribe();
-  }
-
-  checkGameStatus(): void {
-    // Vérifie si le jeu est prêt via le service
-    const partie = this.partieService.currentPartie$.value;
-    if (partie && partie.nomJoueur2 !== 'En attend') {
-      this.router.navigate(['/play']); // Redirection si le jeu est prêt
-    }
   }
 }

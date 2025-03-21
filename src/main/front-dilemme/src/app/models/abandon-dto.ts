@@ -1,6 +1,6 @@
 import { TypeStrategie } from './type-strategie';
 
-export interface AbandonnerDTO {
+export interface AbandonDTO {
   idPlayer: number;
   strategie: TypeStrategie;
   strategieExterne: boolean;
